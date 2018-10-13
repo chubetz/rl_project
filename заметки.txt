@@ -1,0 +1,33 @@
+﻿Как работать с HSQL
+
+Положить JDBC-драйвер в Tomcat - можно через Netbeans (Servers - Apache.. - Sources - добавить hsqldb.jar)
+И в проект надо положить
+
+
+Tomcat:
+Ups. Seems like this is not a bug. For Tomcat you have to set allowCasualMultipartParsing to true to get it to work correctly.
+
+From the docs:
+
+    Set to true if Tomcat should automatically parse multipart/form-data request bodies when HttpServletRequest.getPart* or HttpServletRequest.getParameter* is called, even when the target servlet isn't marked with the @MultipartConfig annotation (See Servlet Specification 3.0, Section 3.2 for details). Note that any setting other than false causes Tomcat to behave in a way that is not technically spec-compliant. The default is false
+
+(https://docs.oracle.com/javaee/6/tutorial/doc/gmhal.html)
+
+Загрузхка файлов:
+https://stackoverflow.com/questions/18664579/recommended-way-to-save-uploaded-files-in-a-servlet-application
+
+
+
+runserver.bat --help - список доступных аргументов
+
+новая БД:
+runserver.bat --database.0 file:C:\JAVA\hsql\test1 --dbname.0 test1
+
+Подключение:
+runmanager.bat
+
+Type: HSQL Database Engine Server
+Driver: org.hsqldb.jdbcDriver
+jdbc:hsqldb:hsql://localhost/test1
+
+

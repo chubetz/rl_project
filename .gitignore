@@ -1,0 +1,12 @@
+/rl_project/nbproject/private/
+rl_project/build/*
+!rl_project/build/web/
+rl_project/build/web/*
+!rl_project/build/web/uploads/
+rl_project/build.xml
+rl_project/nbproject/ant-deploy.xml
+rl_project/nbproject/build-impl.xml
+rl_project/nbproject/genfiles.properties
+rl_project/nbproject/project.properties
+rl_project/nbproject/project.xml
+rl_project/web/tinymce/
