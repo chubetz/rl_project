@@ -1,0 +1,195 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Sep 6, 2018, 1:29:15 PM
+    Author     : d.gorshenin
+*/
+
+.bg1 {
+    background-image: url("../images/podlogka.png");
+    background-size: 100% 100%;
+    resize: both;
+}
+
+.bg2 {
+    background-image: url("../images/podlogka_green.png");
+    background-size: 100% 100%;
+    resize: both;
+}
+
+.min_header {
+    font-family: Arial;
+    font-size: 14px;
+    font-weight: 700;
+}
+.stat1 {
+    font-family: Verdana;
+    font-size: 14px;
+}
+
+.small_border {
+  background-color: white;
+  border: 2px solid;
+}
+
+.tah {
+    font-family: Tahoma;
+    font-size: 14px;
+}
+
+.green {
+    color: green;
+}
+
+.header_palatino {
+    font-family: Palatino Linotype;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.home_logo {
+    margin-left: 7px;
+    margin-top: -28px;
+}
+
+
+.tdbg1 {
+    background-color:#B7E7F3
+}
+.tdbg11 {
+    background-color:#D3F0F8
+}
+
+
+.tdbg_realm {
+}
+
+.tdbg_realm td {
+    background-color:#F3E7B7
+}
+
+.tdbg2 {
+}
+
+.tdbg2 td {
+    background-color:#54A8B8
+}
+
+.tdbg3 {
+    background-color:#C0F3B7
+}
+
+.tdbg31 {
+    background-color:#E4FAE0 !important;
+}
+
+.tdbg4 {
+}
+
+.tdbg4 td {
+    background-color:#5FB854
+}
+
+.calibri_new {
+    font-family: Calibri;
+    font-size: 14px;
+    font-weight: 700;
+    color:white;
+    background: navy;
+}
+
+.calibri_hdr {
+    font-family: Calibri;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.calibri_cell {
+    font-family: Calibri;
+    font-size: 18px;
+}
+
+.calibri_link {
+    font-family: Calibri;
+    font-size: 14px;
+}
+
+.calibri_link a {
+    color: #1F600E;
+}
+
+.calibri_link a:hover {
+    color: black;
+    text-decoration: none;
+}
+
+.calibri_link_th {
+    font-family: Calibri;
+    font-size: 14px;
+}
+
+.calibri_link_th a {
+    color: #0E0F60;
+}
+
+.calibri_link_th a:hover {
+    color: black;
+    text-decoration: none;
+}
+
+
+.realm_link {
+    color: black;
+}
+.realm_link:hover{
+    color: #2DC7E9;
+    text-decoration: none;
+}
+
+.create_link {
+    border: 1px solid black;
+    color: black !important;
+    text-decoration: none;
+}
+.create_link:hover{
+    border: 1px solid blue;
+    color: blue !important;
+}
+
+
+.profile_realm_1 {
+    font-family: Tahoma;
+    font-size:16px;
+}
+.profile_realm_2 {
+    font-family: Courier New;
+    font-size:14px;
+}
+
+.profile_realm_label {
+    font-family: Tahoma;
+    font-size:10px;
+}
+
+.border {
+    border: 1px solid black;
+    padding: 1px;
+}
+
+.white_border {
+    border: 1px solid white;
+    padding: 1px;
+}
+
+
+.center {
+    text-align: center;
+}
+
+.bold {
+    font-weight: 700;
+}
