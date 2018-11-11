@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import ru.rl.project.edu.Realm;
+import ru.rl.project.edu.Rule;
 import ru.rl.project.edu.Theme;
 import ru.rl.project.exception.JDBCException;
 import ru.rl.project.util.Utils;
@@ -103,6 +104,35 @@ public class EntityProfile extends ErrorHandlingServlet {
                         }
                     }
                     request.setAttribute("title", "Профиль предметной области");
+                    break;
+                case "rule":
+                    url = "/rules/profile.jsp";
+                    if (request.getParameter(parName).equals("new"))
+                        request.setAttribute("rule", Rule.getMock());
+                    else
+                        request.setAttribute("rule", Rule.getById(request.getParameter(parName)));
+                    action = request.getParameter("action");
+                    if (action != null) {
+                        switch (action) {
+                            case "edit":
+                                request.setAttribute("mode", "edit");
+                                break;
+                            case "save":
+                                Rule rule;
+                                try {
+                                    rule = Rule.saveRule(request.getParameter("rule"), request.getParameterMap());
+                                } catch (JDBCException ex) {
+                                    Logger.getLogger(EntityProfile.class.getName()).log(Level.SEVERE, null, ex);
+                                    url = "/db_error.jsp";
+                                    request.setAttribute("exception", ex);
+                                    break;
+                                }
+                                url = null;
+                                response.sendRedirect("viewProfile?rule=" + rule.getId());
+                                break;
+                        }
+                    }
+                    request.setAttribute("title", "Профиль правила");
                     break;
                 
             }

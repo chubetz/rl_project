@@ -8,53 +8,53 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:import url= "/includes/newheader.jsp" />
 
-<c:if test="${theme == null}">
+<c:if test="${rule == null}">
     <c:import url= "/includes/icons.jsp" />
 
-    Темы с таким идентификатором не существует
+    Правила с таким идентификатором не существует
 </c:if>
 
     <table><tr>
             <td>
-<form style="visibility: ${theme == null || theme.realm == null ? 'hidden' : 'visible'}" name="new" action="viewProfile" method="GET">
-    <input type="hidden" name="realm" value="${theme.realm.id}">
-    <input class="calibri_new" type="submit" value="Переход к профилю области" />
+<form style="visibility: ${rule == null || rule.theme == null ? 'hidden' : 'visible'}" name="new" action="viewProfile" method="GET">
+    <input type="hidden" name="theme" value="${rule.theme.id}">
+    <input class="calibri_new" type="submit" value="Переход к профилю темы" />
 </form>
             </td>    
             <td>
-<form style="visibility: ${theme == null ? 'hidden' : 'visible'}" name="new" action="view" method="GET">
-    <input type="hidden" name="info" value="themes">
-    <input class="calibri_new" type="submit" value="Переход к списку тем" />
+<form style="visibility: ${rule == null ? 'hidden' : 'visible'}" name="new" action="view" method="GET">
+    <input type="hidden" name="info" value="rules">
+    <input class="calibri_new" type="submit" value="Переход к списку правил" />
 </form>
             </td>    
     </tr></table>
-<table style="visibility: ${theme == null ? 'hidden' : 'visible'}" border="0" cellpadding="1" cellspacing="0" bgcolor="black" width="400"><tr><td>
+<table style="visibility: ${rule == null ? 'hidden' : 'visible'}" border="0" cellpadding="1" cellspacing="0" bgcolor="black" width="400"><tr><td>
 
 <table border="0" cellpadding="3" cellspacing="1" width="100%">
 
     <form name="new" action="viewProfile" method="${mode == 'edit' ? 'POST' : 'GET'}">
-        <input type="hidden" name="theme" value="${theme.id}">
+        <input type="hidden" name="rule" value="${rule.id}">
     
     <tr>
         <td bgcolor="${theme.treeSign.tableBgcolor}" rowspan="2" width="15%">
            
         </td>
-        <td  colspan="3" align="center" class="profile_realm_1" bgcolor="${theme.treeSign.tdBgcolor}">
-            <span class="profile_realm_label border" style="background: ${theme.treeSign.tableBgcolor};"><b>Тема</b></span>
+        <td  colspan="3" align="center" class="profile_realm_1" bgcolor="${rule.treeSign.tdBgcolor}">
+            <span class="profile_realm_label border" style="background: ${rule.treeSign.tableBgcolor};"><b>Правило</b></span>
             <p style="font-size: 5px;"> </p>
             <c:choose>
                 <c:when test="${mode == 'edit'}">
-                    <input size="30" class="profile_realm_1 center bold" type="text" name="text" value="${theme.text}" required="true">
+                    <input size="30" class="profile_realm_1 center bold" type="text" name="text" value="${rule.text}" required="true">
                 </c:when>
                 <c:otherwise>
-                    <b>${theme.text}</b>
+                    <b>${rule.text}</b>
                 </c:otherwise>
             </c:choose>
             
         </td>
     </tr>
     <tr>
-        <td  colspan="3" align="center" class="profile_realm_2" bgcolor="${theme.treeSign.tdBgcolor}">
+        <td  colspan="3" align="center" class="profile_realm_2" bgcolor="${rule.treeSign.tdBgcolor}">
             <span class="profile_realm_label border" style="background: ${theme.treeSign.tableBgcolor};"><b>Область</b></span>
             <c:choose>
                 <c:when test="${theme.realm == null}">

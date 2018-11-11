@@ -43,12 +43,15 @@ public class Storage {
     private Map<Integer, Image> imageMap;    
     private Map<Integer, UserAnswer> userAnswerMap;    
     private Map<Integer, ThemeExam> themeExamMap;    
+    private Map<Integer, Rule> ruleMap;    
     private Set<ThemeQuestion> themeQuestionSet;    
     private Map<Integer, Map<Integer, Question>> questionMapForTheme;    
     private Map<Integer, Map<Integer, Question>> questionMapForRealm;    
+    private Map<Integer, Map<Integer, Question>> questionMapForRule;    
     private Map<Integer, Map<Integer, Theme>> themeMapForQuestion;    
     private Map<Integer, Map<Integer, Theme>> themeMapForRealm; 
     private Map<Integer, Map<Integer, ThemeExam>> themeExamMapForTheme; 
+    private Map<Integer, Map<Integer, Rule>> ruleMapForTheme; 
     
     private Statistics statistics;
     
@@ -124,6 +127,16 @@ public class Storage {
         }
     }
 
+    Map<Integer, Question> getQuestionMap(Rule rule) { //для вопросов
+        int ruleId = rule.getId();
+        provideDefaultMap(questionMapForRule, ruleId);
+        if (ruleId >= 0) {
+            return questionMapForRule.get(ruleId);
+        } else {
+            return new HashMap<Integer, Question>();
+        }
+    }
+
     Map<Integer, ThemeExam> getThemeExamMap(Theme theme) { //для вопросов
         int themeId = theme.getId();
         provideDefaultMap(themeExamMapForTheme, themeId);
@@ -134,6 +147,15 @@ public class Storage {
         }
     }
 
+    Map<Integer, Rule> getRuleMap(Theme theme) { //для вопросов
+        int themeId = theme.getId();
+        provideDefaultMap(ruleMapForTheme, themeId);
+        if (themeId >= 0) {
+            return ruleMapForTheme.get(themeId);
+        } else {
+            return new HashMap<Integer, Rule>();
+        }
+    }
 
 //    void addTheme(Theme theme, Question question) {
 //        if (question == null) return;
@@ -169,6 +191,10 @@ public class Storage {
 
     Map<Integer, ThemeExam> getThemeExamMap() {
         return themeExamMap;
+    }
+
+    Map<Integer, Rule> getRuleMap() {
+        return ruleMap;
     }
 
     private Storage() {}
@@ -232,6 +258,15 @@ public class Storage {
     }
     void register(UserAnswer userAnswer) {
         userAnswerMap.put(userAnswer.getId(), userAnswer);
+    }
+    void register(Rule rule) {
+        ruleMap.put(rule.getId(), rule);
+
+        int themeId = rule.getInt("themeId");
+        if (themeMap.get(themeId) == null)
+            throw new RuntimeException("Тема с идентификатором " + themeId + ", для которой производится попытка зарегистрировать правило, не найдена в памяти");
+        provideDefaultMap(ruleMapForTheme, themeId);
+        ruleMapForTheme.get(themeId).put(rule.getId(), rule);
     }
     void register(ThemeExam themeExam) {
         themeExamMap.put(themeExam.getId(), themeExam);
@@ -366,6 +401,16 @@ public class Storage {
                 themeExam.setPrimaryKey(entity.getPrimaryKey());
                 themeExam.setState(entity.getState());
                 storage.register(themeExam);
+            }
+
+            storage.ruleMap = new HashMap<Integer, Rule>();
+            storage.ruleMapForTheme = new HashMap<Integer, Map<Integer, Rule>>();    
+            data = JDBCUtils.loadEntitiesData(new Rule(-1));
+            for (DBEntity entity : data) {
+                Rule rule = new Rule(-1);
+                rule.setPrimaryKey(entity.getPrimaryKey());
+                rule.setState(entity.getState());
+                storage.register(rule);
             }
 
         } catch (JDBCException ex) {

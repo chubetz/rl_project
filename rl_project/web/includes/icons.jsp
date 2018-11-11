@@ -17,6 +17,9 @@
             <a href="view?info=themes"><img title="Темы" src="images/themes_logo.png" width="50" border="1"></a>
         </td>
         <td>
+            <a href="view?info=rules"><img title="Правила" src="images/rules_logo.png" width="50" border="1"></a>
+        </td>
+        <td>
             <a href="view?info=questions"><img title="Карточки" src="images/questions_logo.png" width="50" border="1"></a>
         </td>
     </tr>    
@@ -29,6 +32,9 @@
         </td>
         <td>
             Темы
+        </td>
+        <td>
+            Правила
         </td>
         <td>
             Карточки

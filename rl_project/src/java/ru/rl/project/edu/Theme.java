@@ -53,19 +53,19 @@ public class Theme extends Entity implements ITreeElement {
         defaultState = new LinkedHashMap<String, Object>();
         defaultState.put("realmId", -1);
         defaultState.put("text", "");
-        defaultState.put("number", 0.0);
+        defaultState.put("number", 0);
     }
     
     public String getText() { //вспомогательный геттер
         return this.getStr("text");
     }
 
-    public double getNumber() { //вспомогательный геттер
-        return this.getDbl("number");
+    public int getNumber() { //вспомогательный геттер
+        return this.getInt("number");
     }
 
     public String getNumberStr() { //вспомогательный геттер
-        return this.getDblStr("number");
+        return "" + this.getNumber();
     }
 
 
@@ -95,7 +95,7 @@ public class Theme extends Entity implements ITreeElement {
     }
 
     public String getTitle() {
-        return "" + getDblStr("number") + " " + getText();
+        return "" + getNumber() + " " + getText();
     }
 
     public static Theme getById(Object id){

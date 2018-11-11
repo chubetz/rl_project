@@ -58,6 +58,15 @@
                     <span >${realm.text}</span>
                 </c:otherwise>
             </c:choose>
+            <span class="profile_realm_label border" style="background: ${realm.treeSign.tableBgcolor};"><b>Номер</b></span>
+            <c:choose>
+                <c:when test="${mode == 'edit'}">
+                    <input size="10" class="profile_realm_2 center " type="text" name="number" value="${realm.number}" required="true">
+                </c:when>
+                <c:otherwise>
+                    <span >${realm.number}</span>
+                </c:otherwise>
+            </c:choose>
         </td>
         <td align="center" bgcolor="${realm.treeSign.tdBgcolor}">
             <c:choose>

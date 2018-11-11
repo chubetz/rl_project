@@ -286,9 +286,11 @@ public class MainServlet extends ErrorHandlingServlet {
                     }
                     StringBuilder sb = new StringBuilder();
                         sb.append("DROP TABLE Realm IF EXISTS;\r\n");
-                        sb.append("CREATE TABLE Realm (id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY, text VARCHAR(20), description VARCHAR(2000));\r\n");
+                        sb.append("CREATE TABLE Realm (id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY, text VARCHAR(20), description VARCHAR(2000), number int);\r\n");
                         sb.append("DROP TABLE Theme IF EXISTS;\r\n");
-                        sb.append("CREATE TABLE Theme (id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY, realmId int, text VARCHAR(2000), number DOUBLE);\r\n");
+                        sb.append("CREATE TABLE Theme (id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY, realmId int, text VARCHAR(2000), number int);\r\n");
+                        sb.append("DROP TABLE Rule IF EXISTS;\r\n");
+                        sb.append("CREATE TABLE Rule (id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY, themeId int, text VARCHAR(2000), number int);\r\n");
                         sb.append("DROP TABLE Question IF EXISTS;\r\n");
                         sb.append("CREATE TABLE Question (id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY, realmId int, type int, text VARCHAR(2000), number int);\r\n");
                         sb.append("\tDROP TABLE Answer IF EXISTS;\r\n");

@@ -50,12 +50,17 @@ public class Realm extends Entity implements ITreeElement {
         defaultState = new LinkedHashMap<String, Object>();
         defaultState.put("text", "");
         defaultState.put("description", "");
+        defaultState.put("number", -1);
     }
     
     public String getText() { //вспомогательный геттер
         return this.getStr("text");
     }
     
+    public int getNumber() { //вспомогательный геттер
+        return this.getInt("number");
+    }
+
     public String getDescription() { //вспомогательный геттер
         return this.getStr("description");
     }

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import ru.rl.project.edu.ITreeElement;
 import ru.rl.project.edu.Realm;
+import ru.rl.project.edu.Rule;
 import ru.rl.project.edu.Storage;
 import ru.rl.project.edu.Theme;
 import ru.rl.project.exception.JDBCException;
@@ -60,6 +61,11 @@ public class Viewer extends ErrorHandlingServlet {
                 url = "/themes/view_list.jsp";
                 request.setAttribute("title", "Список имеющихся тем");
                 request.setAttribute("themes", Theme.getMap().values());
+                break;
+            case "rules":
+                url = "/rules/view_list.jsp";
+                request.setAttribute("title", "Список имеющихся правил");
+                request.setAttribute("rules", Rule.getMap().values());
                 break;
             case "images":
                 url = "/view_list.jsp";
