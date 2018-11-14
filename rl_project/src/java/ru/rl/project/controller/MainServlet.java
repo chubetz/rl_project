@@ -87,11 +87,11 @@ public class MainServlet extends ErrorHandlingServlet {
             case "new_question":
                 url = "/edit_question.jsp";
                 Utils.print("Servlet.new_question", request.getParameterMap());
-                String realmId = request.getParameter("realm");
-                String themeId = request.getParameter("theme");
+                //String realmId = request.getParameter("realm");
+                String ruleId = request.getParameter("rule");
                 Question mockQuestion = null;
-                if (realmId != null || themeId != null) {
-                    mockQuestion = Question.getMockQuestion(realmId, themeId);
+                if (ruleId != null) {
+                    mockQuestion = Question.getMockQuestion(ruleId);
                 } else
                     mockQuestion = Question.getMockQuestion();
                 request.setAttribute("action", "update_question");
@@ -292,7 +292,7 @@ public class MainServlet extends ErrorHandlingServlet {
                         sb.append("DROP TABLE Rule IF EXISTS;\r\n");
                         sb.append("CREATE TABLE Rule (id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY, themeId int, text VARCHAR(2000), number int);\r\n");
                         sb.append("DROP TABLE Question IF EXISTS;\r\n");
-                        sb.append("CREATE TABLE Question (id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY, realmId int, type int, text VARCHAR(2000), number int);\r\n");
+                        sb.append("CREATE TABLE Question (id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY, realmId int, type int, text VARCHAR(2000), number int, ruleId int);\r\n");
                         sb.append("\tDROP TABLE Answer IF EXISTS;\r\n");
                         sb.append("\tCREATE TABLE Answer (id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY, questionId int, correct boolean, text VARCHAR(2000), comment VARCHAR(2000));\r\n");
                         sb.append("DROP TABLE ThemeQuestion IF EXISTS;\r\n");

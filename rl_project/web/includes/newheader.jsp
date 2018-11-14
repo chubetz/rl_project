@@ -12,7 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>${title}</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/newcss.css" type="text/css"/>
-        <c:if test="${edit_mode.equals('on')}">
+        <c:if test="${edit_mode.equals('on') || mode.equals('edit')}">
             <script type="text/javascript" src="tinymce/tinymce.js"></script>
             <!-- TinyMCE -->
             <script type="text/javascript">

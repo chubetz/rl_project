@@ -30,10 +30,13 @@
             Название
         </td>
         <td>
-            Предметная область
+            Раздел
         </td>
         <td>
-            Карточки
+            Правила
+        </td>
+        <td>
+            Задания
         </td>
     </tr>
     <% boolean contrast = true;%>
@@ -43,6 +46,7 @@
         <td><b>${t.numberStr}</b></td>
         <td><a class="realm_link" href="${t.profileURL}"><b>${t.text}</b></a></td>
         <td class="calibri_link_th"><b>${t.realm.getProfileLink(t.realm.description)}</b></td>
+        <td class="calibri_link"><b>${t.rulesHTML}</b></td>
         <td align="center" class="calibri_link_th" style="font-size: 17px;">
                 <c:choose>
                     <c:when test="${t.questionsQty > 0}">

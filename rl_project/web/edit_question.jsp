@@ -15,8 +15,9 @@
             <c:if test="${question.newThemeId >= 0}">
             <input type="hidden" name="newThemeId" value="${question.newThemeId}">
             </c:if>
-            <label>Область</label>
-            ${question.getRealmsHTML()}
+            <label>Правило</label>
+            ${question.rule.getProfileLink(question.rule.text)}
+            <input type="hidden" name="ruleId" value="${question.rule.id}">
             <br>
             <label>Тип вопроса</label>
             <select name="type">

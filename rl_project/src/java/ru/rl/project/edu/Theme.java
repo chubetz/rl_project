@@ -146,7 +146,13 @@ public class Theme extends Entity implements ITreeElement {
     }
     
     public Map<Integer, Question> getQuestionMap() {
-        return Collections.unmodifiableMap(getStorage().getQuestionMap(this));
+        //return Collections.unmodifiableMap(getStorage().getQuestionMap(this));
+        Map<Integer, Question> map = new HashMap<Integer, Question>();
+        for (Rule r: getRuleMap().values()) {
+            map.putAll(r.getQuestionMap());
+        }
+        
+        return map;
     }
     
     public List<Question> getValidQuestions() {
@@ -195,7 +201,7 @@ public class Theme extends Entity implements ITreeElement {
         return "<a href=view?info=questions&themeId=" + this.getId() + ">" + linkText + "</a>";
     }
     public String getQuestionsHTMLLink() {
-        return getQuestionsHTMLLink("Карточки");
+        return getQuestionsHTMLLink("Задания");
     }
     public int getQuestionsQty() {
         return getQuestionMap().size();
@@ -256,5 +262,42 @@ public class Theme extends Entity implements ITreeElement {
         public int compare(Theme o1, Theme o2) {
             return new Double(o1.getNumber()).compareTo(new Double(o2.getNumber()));
         }
+    }
+
+    public int getRulesQty() {
+        return getRuleMap().size();
+    }
+    public Map<Integer, Rule> getRuleMap() {
+        return Collections.unmodifiableMap(getStorage().getRuleMap(this));
+    }
+    public String getRulesTableHTML() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("<table width=\"100%\" cellspacing=\"2\">\n");
+        List<Rule> ruleList = new ArrayList<Rule>(getRuleMap().values());
+        Collections.sort(ruleList, Rule.NUMBER_COMPARATOR);
+        for (int i=0; i<ruleList.size(); i++) {
+            Rule rule = ruleList.get(i);
+            sb.append("<tr bgcolor=" + (i%2 == 0 ? "white" : "#D7DDDD") + ">\n");
+            sb.append("<td>\n");
+            sb.append(rule.getNumber());
+            sb.append("</td>\n");
+            sb.append("<td>\n");
+            sb.append(rule.getProfileLink(rule.getText()));
+            sb.append("</td>\n");
+            sb.append("</tr>\n");
+        }
+        sb.append("</table>\n");
+        return sb.toString();
+    }
+    public String getRulesHTML() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("<ul>\r\n");
+        List<Rule> ruleList = new ArrayList<Rule>(getRuleMap().values());
+        Collections.sort(ruleList, Rule.NUMBER_COMPARATOR);
+        for (Rule rule: ruleList) {
+            sb.append("\t<li>" + rule.getProfileLink("" + rule.getNumber() + " " + rule.getText()) + "\r\n");
+        }
+        sb.append("</ul>");
+        return sb.toString();
     }
 }

@@ -11,11 +11,11 @@
 
 <h3>(всего ${rules.size()} элементов)</h3>
 
-<form name="new" action="viewProfile" method="GET">
+<%--form name="new" action="viewProfile" method="GET">
     <input type="hidden" name="rule" value="new">
     <input type="hidden" name="action" value="edit">
     <input class="calibri_new" type="submit" value="Создать" />
-</form>
+</form--%>
 <table border="0" cellpadding="1" cellspacing="0" bgcolor="black"><tr><td>
 
 <table border="0" cellpadding="5" cellspacing="1">

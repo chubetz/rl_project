@@ -37,7 +37,7 @@
             Темы
         </td>
         <td>
-            Карточки
+            Задания
         </td>
     </tr>
     <% boolean contrast = true;%>

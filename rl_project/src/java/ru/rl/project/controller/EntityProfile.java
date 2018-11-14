@@ -108,7 +108,7 @@ public class EntityProfile extends ErrorHandlingServlet {
                 case "rule":
                     url = "/rules/profile.jsp";
                     if (request.getParameter(parName).equals("new"))
-                        request.setAttribute("rule", Rule.getMock());
+                        request.setAttribute("rule", Rule.getMock(request.getParameter("themeId")));
                     else
                         request.setAttribute("rule", Rule.getById(request.getParameter(parName)));
                     action = request.getParameter("action");

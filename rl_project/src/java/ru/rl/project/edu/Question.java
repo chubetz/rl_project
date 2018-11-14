@@ -59,13 +59,23 @@ public class Question extends Entity implements ITreeElement {
         return question;
     }
     
+    public static Question getMockQuestion(String ruleId) { //обертка для Question - для jsp
+
+        Question question = getMockQuestion();
+        Map<String, Object> state = new HashMap<String, Object>();
+        if (ruleId != null && Rule.getById(ruleId) != null)
+            state.put("ruleId", Integer.parseInt(ruleId));
+        question.setState(state);
+        return question;
+    }
+
     public int getNewThemeId() { //параметр для формы редактирования нового вопроса - чтобы сразу
         //связать его с темой
         return this.themeIdForNewQuestion;
     }
 
     public static Question getQuestionFromParameterMap(Map<String, ?> data) { //изготовить объект вопроса по параметрам с фронта (и не только)
-        if (data.get("realmId").getClass().isArray()) { //список параметров с фронта
+        if (data.get("ruleId").getClass().isArray()) { //список параметров с фронта
             data = Utils.translateWebData( (Map<String, String[]>)data );
         }
         Question question = new MockQuestion(data); //возвращает полностью заполненный объект, с которого можно сгенерить формы для редактирования
@@ -108,14 +118,15 @@ public class Question extends Entity implements ITreeElement {
 
         defaultState = new LinkedHashMap<String, Object>();
         defaultState.put("realmId", -1);
+        defaultState.put("ruleId", -1);
         defaultState.put("type", -1);
         defaultState.put("text", "");
         defaultState.put("number", 0);
 
         availableTypes = new HashMap<Integer, String>();
-        availableTypes.put(NB_TYPE, "Nota bene"); //односторонняя флеш-карточка
+        //availableTypes.put(NB_TYPE, "Nota bene"); //односторонняя флеш-карточка
         availableTypes.put(TEST_TYPE, "Тест");
-        availableTypes.put(COMMON_TYPE, "Общий"); //двусторонняя флеш-карточка
+        //availableTypes.put(COMMON_TYPE, "Общий"); //двусторонняя флеш-карточка
     }
 
     public static String getTypeText(Object keyObj) {
@@ -173,9 +184,17 @@ public class Question extends Entity implements ITreeElement {
     }
     
     public Realm getRealm() {
-        return Realm.getMap().get(this.getInt("realmId"));
+        return getTheme().getRealm();
     }
     
+    public Rule getRule() {
+        return Rule.getMap().get(this.getInt("ruleId"));
+    }
+
+    public Theme getTheme() {
+        return getRule().getTheme();
+    }
+
     public String getAnswersTableHTML() {
         StringBuilder sb = new StringBuilder();
         sb.append("<tr>");
@@ -289,7 +308,7 @@ public class Question extends Entity implements ITreeElement {
 
     @Override
     public String toString() {
-        return "Вопрос {" + getId() + "} " + '{' + getRealm().getStr("text") + "} " + "{" + Question.getTypeText(getInt("type")) + "}" + "{" + getInt("number") + "}";
+        return "Вопрос {" + getId() + "} " + '{' + getRule().getId() + "} " + "{" + Question.getTypeText(getInt("type")) + "}" + "{" + getInt("number") + "}";
     }
     
     private void saveAnswers(Map<String, ?> data) throws JDBCException {
@@ -324,19 +343,19 @@ public class Question extends Entity implements ITreeElement {
             question = new Question(-1);
         }
         if (data != null) {
-            if (data.get("realmId").getClass().isArray()) { //список параметров с фронта
+            if (data.get("ruleId").getClass().isArray()) { //список параметров с фронта
                 data = Utils.translateWebData( (Map<String, String[]>)data );
             }
             Utils.print("saveQuestion", data);
-            Realm oldRealm = question.getRealm();
+            //Realm oldRealm = question.getRealm();
             question.setState(data);
-            Realm realm = question.getRealm();
-            if (realm != null && oldRealm != null && realm.getId() != oldRealm.getId()) {
-                for (int themeId: question.getThemeMap().keySet()) {
-                    new ThemeQuestion(themeId, question.getId()).delete();
-                }
-                getStorage().unbind(question, oldRealm);
-            }
+            //Realm realm = question.getRealm();
+//            if (realm != null && oldRealm != null && realm.getId() != oldRealm.getId()) {
+//                for (int themeId: question.getThemeMap().keySet()) {
+//                    new ThemeQuestion(themeId, question.getId()).delete();
+//                }
+//                getStorage().unbind(question, oldRealm);
+//            }
 
         }
         Map<String, Object> pk = JDBCUtils.saveEntity(question);

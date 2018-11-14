@@ -7,11 +7,14 @@ package ru.rl.project.edu;
 
 import java.sql.Date;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import ru.rl.project.db.JDBCUtils;
 import static ru.rl.project.edu.Entity.getStorage;
 import static ru.rl.project.edu.Realm.getMap;
+import static ru.rl.project.edu.Theme.getMock;
 import static ru.rl.project.edu.ThemeExam.getMap;
 import ru.rl.project.exception.JDBCException;
 import ru.rl.project.util.Utils;
@@ -22,6 +25,8 @@ import ru.rl.project.util.Utils;
  */
 public class Rule extends Entity {
 
+    public static final Comparator<Rule> NUMBER_COMPARATOR = new NumberComparator();
+    
     Rule(int id) {
         super("Rule", id);
     }
@@ -85,7 +90,7 @@ public class Rule extends Entity {
         return rule;
     }
 
-    public double getNumber() { //вспомогательный геттер
+    public int getNumber() { //вспомогательный геттер
         return this.getInt("number");
     }
 
@@ -101,9 +106,28 @@ public class Rule extends Entity {
         return Collections.unmodifiableMap(getStorage().getQuestionMap(this));
     }
 
+    public String getQuestionsHTMLLink(String linkText) {
+        return "<a href=view?info=questions&ruleId=" + this.getId() + ">" + linkText + "</a>";
+    }
+    public String getQuestionsHTMLLink() {
+        return getQuestionsHTMLLink("Задания");
+    }
+    public int getQuestionsQty() {
+        return getQuestionMap().size();
+    }
+
     private static Rule mock = new Rule(-100);
     public static Rule getMock() { //обертка для использования в jsp
         return mock;
+    }
+    public static Rule getMock(String themeId) { //обертка для использования в jsp
+        Rule rule = getMock();
+        if (themeId != null && Theme.getById(themeId) != null) {
+            Map<String, Object> state = new HashMap<String, Object>();
+            state.put("themeId", Integer.parseInt(themeId));
+            rule.setState(state);
+        }
+        return rule;
     }
 
     public static Rule getById(Object id){
@@ -127,5 +151,30 @@ public class Rule extends Entity {
         //treeSign.setProfileLink(getProfileURL());
         
         return treeSign;
+    }
+    public String getThemesHTML() {
+        StringBuilder sb = new StringBuilder();
+        int themeId = this.getInt("themeId");
+//        boolean dropDownDisabled = this.getId() < 0 && themeId >= 0;
+        
+        sb.append("<select name=\"themeId\">\n");
+        for (Map.Entry<Integer, Theme> entry: Theme.getMap().entrySet()) {
+            sb.append("<option value=\"" + entry.getKey() + "\"");
+            if (themeId == entry.getKey())
+                sb.append(" selected");
+            sb.append(">" + entry.getValue().getRealm().getDescription() + "::" + entry.getValue().getText() + "</option>\n");
+        }
+        sb.append("</select>\n");
+//        if (dropDownDisabled) { //нужно продублировать выбранное значение, т.к. select disabled не отправляется в форму
+//            sb.append("<input type=\"hidden\" name=\"realmId\" value=\"" + realmId + "\" />");
+//        }
+            
+        return sb.toString();
+    }
+    private static class NumberComparator implements Comparator<Rule> {
+        @Override
+        public int compare(Rule o1, Rule o2) {
+            return new Integer(o1.getNumber()).compareTo(new Integer(o2.getNumber()));
+        }
     }
 }

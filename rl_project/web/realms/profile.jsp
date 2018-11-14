@@ -7,17 +7,18 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:import url= "/includes/newheader.jsp" />
+<c:import url= "/includes/icons.jsp" />
 
-<form name="new" action="view" method="GET">
+<%--form name="new" action="view" method="GET">
     <input type="hidden" name="info" value="realms">
     <input class="calibri_new" type="submit" value="Переход к списку областей" />
-</form>
+</form--%>
 
 <c:if test="${realm == null}">
     Области с таким идентификатором не существует
 </c:if>
 
-<table style="visibility: ${realm == null ? 'hidden' : 'visible'}" border="0" cellpadding="1" cellspacing="0" bgcolor="black" width="400"><tr><td>
+<table style="visibility: ${realm == null ? 'hidden' : 'visible'}" border="0" cellpadding="1" cellspacing="0" bgcolor="black" width="500"><tr><td>
 
 <table border="0" cellpadding="3" cellspacing="1" width="100%">
 
@@ -29,7 +30,7 @@
            
         </td>
         <td  colspan="3" align="center" class="profile_realm_1" bgcolor="${realm.treeSign.tdBgcolor}">
-            <span class="profile_realm_label border" style="background: ${realm.treeSign.tableBgcolor};"><b>Предметная область</b></span>
+            <span class="profile_realm_label border" style="background: ${realm.treeSign.tableBgcolor};"><b>Раздел</b></span>
             <p style="font-size: 5px;"> </p>
             <c:choose>
                 <c:when test="${mode == 'edit'}">
@@ -103,12 +104,12 @@
                 </c:choose>
             </div>
             <p size="5px"/>
-            <form name="add_question" action="controller" method="GET">
+            <%--form name="add_question" action="controller" method="GET">
                 <b style="color:red;">+</b>
                 <input type="hidden" name="action" value="new_question">
                 <input type="hidden" name="realm" value="${realm.id}">
                 <input class="calibri_new" style="background:#E1E3E1; color:black; font-size:10px" type="submit" value="Создать новую" />
-            </form>
+            </form--%>
         </td>
         <td bgcolor="${realm.treeSign.tdBgcolor}" colspan="2" valign="top"  class="calibri_link" style="font-size: 17px;" align="center">
             <br/>

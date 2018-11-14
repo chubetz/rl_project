@@ -19,15 +19,15 @@
                 </td>
                 <td>
                     <form name="back_to_realm" action="viewProfile" method="GET">
-                        <input type="hidden" name="realm" value="${question.realm.id}">        
-                        <input type="submit" value="Переход к предметной области" /> 
+                        <input type="hidden" name="rule" value="${question.rule.id}">        
+                        <input type="submit" value="Переход к правилу" /> 
                     </form>                    
                 </td>
                 <td>
                     <form name="back_to_list" action="view" method="GET">
                         <input type="hidden" name="info" value="questions">        
-                        <input type="hidden" name="realmId" value="${question.getRealm().getId()}">        
-                        <input type="submit" value="Переход к списку вопросов" /> 
+                        <input type="hidden" name="ruleId" value="${question.rule.id}">        
+                        <input type="submit" value="Переход к списку заданий данного правила" /> 
                     </form>                    
                 </td>
             </tr>
@@ -43,7 +43,7 @@
         </table>
         <br>
         ${question.isValid() ? "Вопрос составлен корректно" : "<font color=red>Вопрос составлен некорректно</font>"}
-        <p>
+        <%--p>
         Выбранные темы:
         ${question.getThemesHTML()}
         <p>
@@ -55,5 +55,5 @@
             ${question.getRealm().getThemesForSelectHTML()}
             <input type="submit" value="Отправить" /> 
             
-        </form>
+        </form--%>
 <c:import url= "/includes/newfooter.jsp" />

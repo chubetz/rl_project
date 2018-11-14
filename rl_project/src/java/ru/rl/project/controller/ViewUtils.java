@@ -33,6 +33,7 @@ class ViewUtils {
     static void fillAttributesQuestions(HttpServletRequest request) throws JDBCException {
         String realmId = request.getParameter("realmId");
         String themeId = request.getParameter("themeId");
+        String ruleId = request.getParameter("ruleId");
 
         StringBuilder sb = new StringBuilder();
         
@@ -53,7 +54,9 @@ class ViewUtils {
             Question question = entry.getValue();
             if (realmId != null && question.getRealm().getId() != Integer.parseInt(realmId))
                 continue;
-            if (themeId != null && !question.getThemeMap().containsKey(Integer.parseInt(themeId)))
+            if (themeId != null && question.getTheme().getId() != Integer.parseInt(themeId))
+                continue;
+            if (ruleId != null && question.getRule().getId() != Integer.parseInt(ruleId))
                 continue;
             counter++;
             String bgcolor = " bgcolor=red";

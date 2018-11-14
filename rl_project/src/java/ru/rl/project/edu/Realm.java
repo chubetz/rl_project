@@ -8,6 +8,7 @@ package ru.rl.project.edu;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -124,7 +125,15 @@ public class Realm extends Entity implements ITreeElement {
     }
 
     public Map<Integer, Question> getQuestionMap() {
-        return Collections.unmodifiableMap(getStorage().getQuestionMap(this));
+        //return Collections.unmodifiableMap(getStorage().getQuestionMap(this));
+        Map<Integer, Question> map = new HashMap<Integer, Question>();
+        for (Theme t: getThemeMap().values()) {
+            for (Rule r: t.getRuleMap().values()) {
+                map.putAll(r.getQuestionMap());
+            }
+        }
+        
+        return map;
     }
 
     public String getQuestionsHTMLLink(String linkText) {

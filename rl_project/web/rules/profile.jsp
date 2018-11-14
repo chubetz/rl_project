@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:import url= "/includes/newheader.jsp" />
+<c:import url= "/includes/icons.jsp" />
 
 <c:if test="${rule == null}">
     <c:import url= "/includes/icons.jsp" />
@@ -14,7 +15,7 @@
     Правила с таким идентификатором не существует
 </c:if>
 
-    <table><tr>
+    <%--table><tr>
             <td>
 <form style="visibility: ${rule == null || rule.theme == null ? 'hidden' : 'visible'}" name="new" action="viewProfile" method="GET">
     <input type="hidden" name="theme" value="${rule.theme.id}">
@@ -27,8 +28,8 @@
     <input class="calibri_new" type="submit" value="Переход к списку правил" />
 </form>
             </td>    
-    </tr></table>
-<table style="visibility: ${rule == null ? 'hidden' : 'visible'}" border="0" cellpadding="1" cellspacing="0" bgcolor="black" width="400"><tr><td>
+    </tr></table--%>
+<table style="visibility: ${rule == null ? 'hidden' : 'visible'}" border="0" cellpadding="1" cellspacing="0" bgcolor="black" width="700"><tr><td>
 
 <table border="0" cellpadding="3" cellspacing="1" width="100%">
 
@@ -36,18 +37,19 @@
         <input type="hidden" name="rule" value="${rule.id}">
     
     <tr>
-        <td bgcolor="${theme.treeSign.tableBgcolor}" rowspan="2" width="15%">
+        <td bgcolor="${rule.treeSign.tableBgcolor}" rowspan="2" width="15%">
            
         </td>
-        <td  colspan="3" align="center" class="profile_realm_1" bgcolor="${rule.treeSign.tdBgcolor}">
+        <td  colspan="3" class="profile_realm_1" bgcolor="${rule.treeSign.tdBgcolor}">
             <span class="profile_realm_label border" style="background: ${rule.treeSign.tableBgcolor};"><b>Правило</b></span>
             <p style="font-size: 5px;"> </p>
             <c:choose>
                 <c:when test="${mode == 'edit'}">
-                    <input size="30" class="profile_realm_1 center bold" type="text" name="text" value="${rule.text}" required="true">
+                    <textarea name="text" rows="4" cols="40">${rule.getStrLtGt("text")}</textarea>
+                    <%--input size="40" type="text" name="text" value="${rule.text}" required="true"--%>
                 </c:when>
                 <c:otherwise>
-                    <b>${rule.text}</b>
+                    ${rule.text}
                 </c:otherwise>
             </c:choose>
             
@@ -55,40 +57,37 @@
     </tr>
     <tr>
         <td  colspan="3" align="center" class="profile_realm_2" bgcolor="${rule.treeSign.tdBgcolor}">
-            <span class="profile_realm_label border" style="background: ${theme.treeSign.tableBgcolor};"><b>Область</b></span>
-            <c:choose>
-                <c:when test="${theme.realm == null}">
-                    <%--input size="30" class="profile_realm_1 center bold" type="text" name="description" value="${theme.text}" required="true"--%>
-                    ${theme.realmsHTML}
+            <span class="profile_realm_label border" style="background: ${rule.treeSign.tableBgcolor};"><b>Тема</b></span>
+            <%--c:choose>
+                <c:when test="${mode == 'edit'}">
+                    ${rule.themesHTML}
                 </c:when>
-                <c:otherwise>
-                    <c:if test="${theme.id < 0}">
-                        <input type="hidden" name="realmId" value="${theme.realm.id}">
-                    </c:if>
-                    <b class="calibri_link_th">${theme.realm.getProfileLink(theme.realm.description)}</b>
-                </c:otherwise>
-            </c:choose>
+                <c:otherwise--%>
+                    <b class="calibri_link_th">${rule.theme.getProfileLink(rule.theme.text)}</b>
+                    <input type="hidden" name="themeId" value="${rule.theme.id}">
+                <%--/c:otherwise>
+            </c:choose--%>
             
         </td>
     </tr>
     <tr >
-        <td  class="profile_realm_2" bgcolor="${theme.treeSign.tdBgcolor}">
-            <span class="profile_realm_label border" style="background: ${theme.treeSign.tableBgcolor};"><b>ID</b></span>
+        <td  class="profile_realm_2" bgcolor="${rule.treeSign.tdBgcolor}">
+            <span class="profile_realm_label border" style="background: ${rule.treeSign.tableBgcolor};"><b>ID</b></span>
             
-            <span>${theme.id < 0 ? '&lt;NEW&gt;' : theme.id}</span>
+            <span>${rule.id < 0 ? '&lt;NEW&gt;' : rule.id}</span>
         </td>
-        <td class="profile_realm_2" bgcolor="${theme.treeSign.tdBgcolor}">
-            <span class="profile_realm_label border" style="background: ${theme.treeSign.tableBgcolor};"><b>Номер</b></span>
+        <td class="profile_realm_2" bgcolor="${rule.treeSign.tdBgcolor}">
+            <span class="profile_realm_label border" style="background: ${rule.treeSign.tableBgcolor};"><b>Номер</b></span>
             <c:choose>
                 <c:when test="${mode == 'edit'}">
-                    <input size="10" class="profile_realm_2 center " type="text" name="number" value="${theme.numberStr}" required="true">
+                    <input size="10" class="profile_realm_2 center " type="text" name="number" value="${rule.number}" required="true">
                 </c:when>
                 <c:otherwise>
-                    <span >${theme.numberStr}</span>
+                    <span >${rule.number}</span>
                 </c:otherwise>
             </c:choose>
         </td>
-        <td align="center" bgcolor="${theme.treeSign.tdBgcolor}">
+        <td align="center" bgcolor="${rule.treeSign.tdBgcolor}">
             <c:choose>
                 <c:when test="${mode == 'edit'}">
                     <input type="hidden" name="action" value="save">
@@ -104,38 +103,38 @@
 
     </form>
 
-    <tr ${theme.id < 0 ? 'style=\'display: none;\'' : ''}>
-        <td width="10%" bgcolor="${theme.treeSign.tdBgcolor}" colspan="2" valign="top" class="calibri_link_th" style="font-size: 17px;" align="center">
+    <tr ${rule.id < 0 ? 'style=\'display: none;\'' : ''}>
+        <td width="10%" bgcolor="${rule.treeSign.tdBgcolor}" colspan="2" valign="top" class="calibri_link_th" style="font-size: 17px;" align="center">
             <br/>
-            <img src="images/flashcard.png" width="80" border="1" style="border-color: ${theme.treeSign.tableBgcolor};">
+            <img src="images/flashcard.png" width="80" border="1" style="border-color: ${rule.treeSign.tableBgcolor};">
             <div style="margin-top: -80px;">
-                <span class="profile_realm_label border" style="background: ${theme.treeSign.tableBgcolor};"><b>Карточки</b></span>
+                <span class="profile_realm_label border" style="background: ${rule.treeSign.tableBgcolor};"><b>Задания</b></span>
             </div>
             <span style="font-size:10px;">&nbsp;</span>
             <div>
                 <c:choose>
-                    <c:when test="${theme.questionsQty > 0}">
-                        <b>${theme.getQuestionsHTMLLink('' + theme.questionsQty)}</b>
+                    <c:when test="${rule.questionsQty > 0}">
+                        <b>${rule.getQuestionsHTMLLink('' + rule.questionsQty)}</b>
                     </c:when>
                     <c:otherwise>
-                        ${theme.questionsQty}
+                        ${rule.questionsQty}
                     </c:otherwise>
                 </c:choose>
             </div>
             <p/>
             <form name="add_question" action="controller" method="GET">
-                <c:if test="${theme.invalidQuestionQty != 0}">
-                    <span style="font-size:11px; color: #DA5600;">(${theme.invalidQuestionQty} нуждаются в исправлении)</span>
+                <%--c:if test="${rule.invalidQuestionQty != 0}">
+                    <span style="font-size:11px; color: #DA5600;">(${rule.invalidQuestionQty} нуждаются в исправлении)</span>
                     <br>
-                </c:if>
+                </c:if--%>
                 <b style="color:red;">+</b>
                 <input type="hidden" name="action" value="new_question">
-                <input type="hidden" name="theme" value="${theme.id}">
-                <input class="calibri_new" style="background:#E1E3E1; color:black; font-size:10px" type="submit" value="Создать новую" />
+                <input type="hidden" name="rule" value="${rule.id}">
+                <input class="calibri_new" style="background:#E1E3E1; color:black; font-size:10px" type="submit" value="Создать новое" />
             </form>
         </td>
-        <td bgcolor="${theme.treeSign.tdBgcolor}" colspan="2" valign="top"  class="calibri_link" style="font-size: 17px;" align="center">
-            <br/>
+        <td bgcolor="${rule.treeSign.tdBgcolor}" colspan="2" valign="top"  class="calibri_link" style="font-size: 17px;" align="center">
+            <%--br/>
             <img src="images/exam.png" width="80" border="1" style="border-color: ${theme.treeSign.tableBgcolor};">
             <div style="margin-top: -80px;">
                 <span class="profile_realm_label border" style="background: ${theme.treeSign.tableBgcolor};"><b>Проверка</b></span>
@@ -150,7 +149,7 @@
                 <input class="calibri_new" style="background:#E1E3E1; color:black; font-size:10px" type="Submit" value="Проверить знания" ${theme.examinable ? "" : "disabled"}>
             </form>
             <div align="left" style="font-size: 14px;"><b>${theme.examsTableHTML}</b></div>
-        </td>
+        </td--%>
                     
     </tr>
                 

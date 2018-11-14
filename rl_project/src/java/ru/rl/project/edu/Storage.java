@@ -209,11 +209,11 @@ public class Storage {
     void register(Question question) {
         questionMap.put(question.getId(), question);
         
-        int realmId = question.getInt("realmId");
-        if (realmMap.get(realmId) ==  null)
-            throw new RuntimeException("Область с идентификатором " + realmId + ", для которой производится попытка зарегистрировать вопрос, не найдена в памяти");
-        provideDefaultMap(questionMapForRealm, realmId);
-        questionMapForRealm.get(realmId).put(question.getId(), question);
+        int ruleId = question.getInt("ruleId");
+        if (ruleMap.get(ruleId) ==  null)
+            throw new RuntimeException("Правило с идентификатором " + ruleId + ", для которого производится попытка зарегистрировать вопрос, не найдено в памяти");
+        provideDefaultMap(questionMapForRule, ruleId);
+        questionMapForRule.get(ruleId).put(question.getId(), question);
             
     }
     void unbind(Question question, Realm realm) {
@@ -333,25 +333,6 @@ public class Storage {
                 storage.register(realm);
             }
 
-            storage.questionMap = new HashMap<Integer, Question>();
-            storage.questionMapForRealm = new HashMap<Integer, Map<Integer, Question>>();
-            data = JDBCUtils.loadEntitiesData(new Question(-1));
-            for (DBEntity entity : data) {
-                Question question = new Question(-1);
-                question.setPrimaryKey(entity.getPrimaryKey());
-                question.setState(entity.getState());
-                storage.register(question);
-            }
-            
-            storage.answerMap = new HashMap<Integer, Answer>();
-            storage.answerMapForQuestion = new HashMap<Integer, Map<Integer, Answer>>();
-            data = JDBCUtils.loadEntitiesData(new Answer(-1)); //ответы
-            for (DBEntity entity : data) {
-                Answer answer = new Answer(-1);
-                answer.setPrimaryKey(entity.getPrimaryKey());
-                answer.setState(entity.getState());
-                storage.register(answer);
-            }
     
 
             storage.themeMap = new HashMap<Integer, Theme>();
@@ -411,6 +392,27 @@ public class Storage {
                 rule.setPrimaryKey(entity.getPrimaryKey());
                 rule.setState(entity.getState());
                 storage.register(rule);
+            }
+
+            storage.questionMap = new HashMap<Integer, Question>();
+            storage.questionMapForRealm = new HashMap<Integer, Map<Integer, Question>>();
+            storage.questionMapForRule = new HashMap<Integer, Map<Integer, Question>>();
+            data = JDBCUtils.loadEntitiesData(new Question(-1));
+            for (DBEntity entity : data) {
+                Question question = new Question(-1);
+                question.setPrimaryKey(entity.getPrimaryKey());
+                question.setState(entity.getState());
+                storage.register(question);
+            }
+            
+            storage.answerMap = new HashMap<Integer, Answer>();
+            storage.answerMapForQuestion = new HashMap<Integer, Map<Integer, Answer>>();
+            data = JDBCUtils.loadEntitiesData(new Answer(-1)); //ответы
+            for (DBEntity entity : data) {
+                Answer answer = new Answer(-1);
+                answer.setPrimaryKey(entity.getPrimaryKey());
+                answer.setState(entity.getState());
+                storage.register(answer);
             }
 
         } catch (JDBCException ex) {
