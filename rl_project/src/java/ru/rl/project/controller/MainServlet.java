@@ -37,6 +37,7 @@ import ru.rl.project.edu.Entity;
 import ru.rl.project.edu.Image;
 import ru.rl.project.edu.Question;
 import ru.rl.project.edu.Realm;
+import ru.rl.project.edu.Rule;
 import ru.rl.project.edu.Storage;
 import ru.rl.project.edu.Theme;
 import ru.rl.project.edu.ThemeExam;
@@ -332,6 +333,28 @@ public class MainServlet extends ErrorHandlingServlet {
                             sb.append("," + s);
                         }
                         sb.append(") OVERRIDING SYSTEM VALUE VALUES (" + t.getId());
+                        for (Object o: state.values()) {
+                            String ooo;
+                            if (o instanceof String) {
+                                o = ((String)o).replace("'","''");
+                                ooo = "'" + o + "'";
+                            } else if (o == null)
+                                ooo = "NULL";
+                            else
+                                ooo=o.toString();
+                            sb.append("," + ooo);
+                        }
+                        sb.append(");\r\n");
+
+                    }
+
+                    for (Rule r: Rule.getMap().values()) {
+                        Map<String, Object> state = r.getState();
+                        sb.append("INSERT INTO Rule (id");
+                        for (String s: state.keySet()) {
+                            sb.append("," + s);
+                        }
+                        sb.append(") OVERRIDING SYSTEM VALUE VALUES (" + r.getId());
                         for (Object o: state.values()) {
                             String ooo;
                             if (o instanceof String) {

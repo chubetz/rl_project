@@ -49,7 +49,7 @@ public class JDBCUtils {
     public static Connection getHSQLConnection(String user, String password) {
         System.out.println("Connecting to database...");
         try {            
-            return DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/test2",user,password);
+            return DriverManager.getConnection("jdbc:hsqldb:hsql://localhost:9002/test2",user,password);
         } catch (SQLException ex) {
             Logger.getLogger(JDBCUtils.class.getName()).log(Level.SEVERE, null, ex);
             return null;
