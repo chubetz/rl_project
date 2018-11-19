@@ -20,6 +20,7 @@ INSERT INTO Realm (id,text,description,number) OVERRIDING SYSTEM VALUE VALUES (0
 INSERT INTO Theme (id,realmId,text,number) OVERRIDING SYSTEM VALUE VALUES (0,0,'Как узнать причастие',1);
 INSERT INTO Theme (id,realmId,text,number) OVERRIDING SYSTEM VALUE VALUES (1,0,'Безударные гласные в окончаниях причастий',2);
 INSERT INTO Rule (id,themeId,text,number) OVERRIDING SYSTEM VALUE VALUES (0,0,'Ярким морфемным признаком причастий является наличие суффиксов -ущ-(-ющ-), -ащ-(-ящ-); -ем-(-ом-), -им-; -вш-, -ш-, -енн-(-ённ-), -нн-, -т-. Причастия отвечают на вопросы какой? (каков?), что делающий? что сделавший?',1);
+INSERT INTO Rule (id,themeId,text,number) OVERRIDING SYSTEM VALUE VALUES (1,1,'Написание безударных гласных в окончаниях причастий определяется так же, как и написание падежных окончаний прилагательных &ndash; по вопросу, задаваемому от определяемого слова.',1);
 INSERT INTO Question (id,realmId,ruleId,type,text,number) OVERRIDING SYSTEM VALUE VALUES (0,-1,0,1,'Найдите среди данных слов причастие.',1);
 	INSERT INTO Answer (id,questionId,text,correct,comment) OVERRIDING SYSTEM VALUE VALUES (0,0,'Снежный',false,'');
 	INSERT INTO Answer (id,questionId,text,correct,comment) OVERRIDING SYSTEM VALUE VALUES (1,0,'Зеленый',false,'');
@@ -46,3 +47,16 @@ INSERT INTO Question (id,realmId,ruleId,type,text,number) OVERRIDING SYSTEM VALU
 	INSERT INTO Answer (id,questionId,text,correct,comment) OVERRIDING SYSTEM VALUE VALUES (13,1,'Жестяное ведро',false,'');
 	INSERT INTO Answer (id,questionId,text,correct,comment) OVERRIDING SYSTEM VALUE VALUES (14,1,'Теплое молоко',false,'');
 	INSERT INTO Answer (id,questionId,text,correct,comment) OVERRIDING SYSTEM VALUE VALUES (15,1,'Волчий хвост',false,'');
+INSERT INTO Question (id,realmId,ruleId,type,text,number) OVERRIDING SYSTEM VALUE VALUES (2,-1,1,1,'Найдите среди данных причастий причастие, в окончании которого пишется И.',1);
+	INSERT INTO Answer (id,questionId,text,correct,comment) OVERRIDING SYSTEM VALUE VALUES (32,2,'о льющ...мся дожде',false,'');
+	INSERT INTO Answer (id,questionId,text,correct,comment) OVERRIDING SYSTEM VALUE VALUES (33,2,'в голубеющ...м просторе',false,'');
+	INSERT INTO Answer (id,questionId,text,correct,comment) OVERRIDING SYSTEM VALUE VALUES (34,2,'от спеющ...х ягод',true,'');
+	INSERT INTO Answer (id,questionId,text,correct,comment) OVERRIDING SYSTEM VALUE VALUES (35,2,'из передаваем...го послания',false,'');
+	INSERT INTO Answer (id,questionId,text,correct,comment) OVERRIDING SYSTEM VALUE VALUES (24,2,'в проснувш...мся лесу',false,'');
+	INSERT INTO Answer (id,questionId,text,correct,comment) OVERRIDING SYSTEM VALUE VALUES (25,2,'на трепещущ...х листьях',true,'');
+	INSERT INTO Answer (id,questionId,text,correct,comment) OVERRIDING SYSTEM VALUE VALUES (26,2,'от тающ...го снега',false,'');
+	INSERT INTO Answer (id,questionId,text,correct,comment) OVERRIDING SYSTEM VALUE VALUES (27,2,'у рокочущ...го моря',false,'');
+	INSERT INTO Answer (id,questionId,text,correct,comment) OVERRIDING SYSTEM VALUE VALUES (28,2,'пропадающ...х голосов',true,'');
+	INSERT INTO Answer (id,questionId,text,correct,comment) OVERRIDING SYSTEM VALUE VALUES (29,2,'на рисуем...м плакате',false,'');
+	INSERT INTO Answer (id,questionId,text,correct,comment) OVERRIDING SYSTEM VALUE VALUES (30,2,'в царивш...й тишине',false,'');
+	INSERT INTO Answer (id,questionId,text,correct,comment) OVERRIDING SYSTEM VALUE VALUES (31,2,'на прогнувш...мся мосту',false,'');
