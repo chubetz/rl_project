@@ -19,8 +19,10 @@ CREATE TABLE ThemeExam (id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY, the
 INSERT INTO Realm (id,text,description,number) OVERRIDING SYSTEM VALUE VALUES (0,'РЯ','Причастие',1);
 INSERT INTO Theme (id,realmId,text,number) OVERRIDING SYSTEM VALUE VALUES (0,0,'Как узнать причастие',1);
 INSERT INTO Theme (id,realmId,text,number) OVERRIDING SYSTEM VALUE VALUES (1,0,'Безударные гласные в окончаниях причастий',2);
+INSERT INTO Theme (id,realmId,text,number) OVERRIDING SYSTEM VALUE VALUES (2,0,'Причастный оборот',3);
 INSERT INTO Rule (id,themeId,text,number) OVERRIDING SYSTEM VALUE VALUES (0,0,'Ярким морфемным признаком причастий является наличие суффиксов -ущ-(-ющ-), -ащ-(-ящ-); -ем-(-ом-), -им-; -вш-, -ш-, -енн-(-ённ-), -нн-, -т-. Причастия отвечают на вопросы какой? (каков?), что делающий? что сделавший?',1);
 INSERT INTO Rule (id,themeId,text,number) OVERRIDING SYSTEM VALUE VALUES (1,1,'Написание безударных гласных в окончаниях причастий определяется так же, как и написание падежных окончаний прилагательных &ndash; по вопросу, задаваемому от определяемого слова.',1);
+INSERT INTO Rule (id,themeId,text,number) OVERRIDING SYSTEM VALUE VALUES (2,2,'Причастие с зависимым от него словами называется причастным оборотом. Причастный оборот, стоящий после определяемого слова, выделяется запятыми. Определяемое слово - слово, от которого задается вопрос к причастию.',1);
 INSERT INTO Question (id,realmId,ruleId,type,text,number) OVERRIDING SYSTEM VALUE VALUES (0,-1,0,1,'Найдите среди данных слов причастие.',1);
 	INSERT INTO Answer (id,questionId,text,correct,comment) OVERRIDING SYSTEM VALUE VALUES (0,0,'снежный',false,'');
 	INSERT INTO Answer (id,questionId,text,correct,comment) OVERRIDING SYSTEM VALUE VALUES (1,0,'зеленый',false,'');
@@ -73,3 +75,16 @@ INSERT INTO Question (id,realmId,ruleId,type,text,number) OVERRIDING SYSTEM VALU
 	INSERT INTO Answer (id,questionId,text,correct,comment) OVERRIDING SYSTEM VALUE VALUES (45,3,'темнеющ...м горизонтом',false,'');
 	INSERT INTO Answer (id,questionId,text,correct,comment) OVERRIDING SYSTEM VALUE VALUES (46,3,'из написанн...го письма',false,'');
 	INSERT INTO Answer (id,questionId,text,correct,comment) OVERRIDING SYSTEM VALUE VALUES (47,3,'с раскрасневш...мся лицомм',false,'');
+INSERT INTO Question (id,realmId,ruleId,type,text,number) OVERRIDING SYSTEM VALUE VALUES (4,-1,2,1,'Среди данных ниже словосочетаний, выберите словосочетание, в котором причастие выделяется запятой (знаки препинания не расставлены).',1);
+	INSERT INTO Answer (id,questionId,text,correct,comment) OVERRIDING SYSTEM VALUE VALUES (48,4,'ветерок пахнущий морем',true,'');
+	INSERT INTO Answer (id,questionId,text,correct,comment) OVERRIDING SYSTEM VALUE VALUES (49,4,'сваренные в соленом растворе омары',false,'');
+	INSERT INTO Answer (id,questionId,text,correct,comment) OVERRIDING SYSTEM VALUE VALUES (50,4,'засыпанные снегом ветви',false,'');
+	INSERT INTO Answer (id,questionId,text,correct,comment) OVERRIDING SYSTEM VALUE VALUES (51,4,'выделенное маркером предложение',false,'');
+	INSERT INTO Answer (id,questionId,text,correct,comment) OVERRIDING SYSTEM VALUE VALUES (52,4,'освещенная луной дорога',false,'');
+	INSERT INTO Answer (id,questionId,text,correct,comment) OVERRIDING SYSTEM VALUE VALUES (53,4,'жареный поросенок разрезанный на порции',true,'');
+	INSERT INTO Answer (id,questionId,text,correct,comment) OVERRIDING SYSTEM VALUE VALUES (54,4,'едущий поезд',false,'');
+	INSERT INTO Answer (id,questionId,text,correct,comment) OVERRIDING SYSTEM VALUE VALUES (55,4,'политый глазурью торт',false,'');
+	INSERT INTO Answer (id,questionId,text,correct,comment) OVERRIDING SYSTEM VALUE VALUES (56,4,'письмо написанное директором',true,'');
+	INSERT INTO Answer (id,questionId,text,correct,comment) OVERRIDING SYSTEM VALUE VALUES (57,4,'выигравшая соревнования команда',false,'');
+	INSERT INTO Answer (id,questionId,text,correct,comment) OVERRIDING SYSTEM VALUE VALUES (58,4,'алеющий закат',false,'');
+	INSERT INTO Answer (id,questionId,text,correct,comment) OVERRIDING SYSTEM VALUE VALUES (59,4,'раскрашенная картинка',false,'');
