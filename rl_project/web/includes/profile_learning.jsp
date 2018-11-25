@@ -47,6 +47,10 @@
                             Количество правил: <b>${theme.getRuleMap().size()}</b><br>
                             Количество заданий: <b>${theme.getQuestionMap().size()}</b><br>
                         </c:if>
+                            <br>
+                            <form name="start" action="learn" method="POST">
+                                <input type="Submit" value="Начать обучение"/>
+                            </form>
                     </td>
                 </tr>
                 
