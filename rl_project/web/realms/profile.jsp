@@ -90,7 +90,7 @@
             <br/>
             <img src="images/flashcard.png" width="80" border="1" style="border-color: ${realm.treeSign.tableBgcolor};">
             <div style="margin-top: -80px;">
-                <span class="profile_realm_label border" style="background: ${realm.treeSign.tableBgcolor};"><b>Карточки</b></span>
+                <span class="profile_realm_label border" style="background: ${realm.treeSign.tableBgcolor};"><b>Задания</b></span>
             </div>
             <span style="font-size:10px;">&nbsp;</span>
             <div>

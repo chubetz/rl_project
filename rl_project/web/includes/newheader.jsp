@@ -38,7 +38,7 @@
         </c:if>
         
     </head>
-    <body bgcolor="#d8cFaA">
+    <body bgcolor="#FBE165">
         <table width="100%" cellpadding="0" cellspacing="0">
             <tr>
                 <td height="2" colspan="2" bgcolor="black"/>
@@ -53,4 +53,4 @@
                 <td height="2" colspan="2" bgcolor="black"/>
             </tr>
         </table>
-                    <div class="home_logo"><a href="index.jsp"><img  src="${pageContext.request.contextPath}/images/logo.png"><a></div>
+                    <div class="home_logo"><a href="index.jsp"><img  src="${pageContext.request.contextPath}/images/5plus.png" width="50" height="40" border="1"><a></div>

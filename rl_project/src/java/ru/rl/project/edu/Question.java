@@ -308,7 +308,7 @@ public class Question extends Entity implements ITreeElement {
 
     @Override
     public String toString() {
-        return "Вопрос {" + getId() + "} " + '{' + getRule().getId() + "} " + "{" + Question.getTypeText(getInt("type")) + "}" + "{" + getInt("number") + "}";
+        return "Задание {" + getId() + "} " + '{' + getRule().getId() + "} " + "{" + Question.getTypeText(getInt("type")) + "}" + "{" + getInt("number") + "}";
     }
     
     private void saveAnswers(Map<String, ?> data) throws JDBCException {

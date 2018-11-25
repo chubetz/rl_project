@@ -20,6 +20,7 @@ import ru.rl.project.edu.Answer;
 import ru.rl.project.edu.Image;
 import ru.rl.project.edu.Question;
 import ru.rl.project.edu.Realm;
+import ru.rl.project.edu.Rule;
 import ru.rl.project.edu.Storage;
 import ru.rl.project.edu.Theme;
 import ru.rl.project.exception.JDBCException;
@@ -35,6 +36,15 @@ class ViewUtils {
         String themeId = request.getParameter("themeId");
         String ruleId = request.getParameter("ruleId");
 
+        if (realmId != null)
+            request.setAttribute("title", "Список заданий в разделе \"" + Realm.getById(realmId).getDescription() + "\"");
+        else if (themeId != null)
+            request.setAttribute("title", "Список заданий в теме \"" + Theme.getById(themeId).getText() + "\"");
+        else if (ruleId != null)
+            request.setAttribute("title", "Список заданий для правила " + Rule.getById(ruleId).getNumber() + " в теме \"" + Rule.getById(ruleId).getTheme().getText() + "\"");
+        else 
+            request.setAttribute("title", "Список всех заданий");
+        
         StringBuilder sb = new StringBuilder();
         
         sb.append("<table>");

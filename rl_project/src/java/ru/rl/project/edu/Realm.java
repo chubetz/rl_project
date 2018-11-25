@@ -76,7 +76,7 @@ public class Realm extends Entity implements ITreeElement {
     }
 
     public String toString() {
-        return "Область {" + getId() + "}";
+        return "Раздел {" + getId() + "}";
     }
 
     public static Realm getById(Object id){
@@ -122,6 +122,16 @@ public class Realm extends Entity implements ITreeElement {
 
     public Map<Integer, Theme> getThemeMap() {
         return Collections.unmodifiableMap(getStorage().getThemeMap(this));
+    }
+
+    public Map<Integer, Rule> getRuleMap() {
+        //return Collections.unmodifiableMap(getStorage().getQuestionMap(this));
+        Map<Integer, Rule> map = new HashMap<Integer, Rule>();
+        for (Theme t: getThemeMap().values()) {
+            map.putAll(t.getRuleMap());
+        }
+        
+        return map;
     }
 
     public Map<Integer, Question> getQuestionMap() {
@@ -195,11 +205,7 @@ public class Realm extends Entity implements ITreeElement {
     
     @Override
     public List<ITreeElement> getTreeElements() {
-        List<ITreeElement> list = new ArrayList<ITreeElement>(getQuestionMap().values());
-        for (Theme th: getThemeMap().values()) {
-            list.removeAll(th.getQuestionMap().values());
-            list.add(0, th);
-        }
+        List<ITreeElement> list = new ArrayList<ITreeElement>(getThemeMap().values());
         
         return list;
     }
@@ -207,7 +213,7 @@ public class Realm extends Entity implements ITreeElement {
 
     @Override
     public TreeSign getTreeSign() {
-        treeSign.setName("Предметная область <b>" + this.getDescription() + "</b>");
+        treeSign.setName("Раздел <b>" + this.getDescription() + "</b>");
         treeSign.setId(getTableName() + "_" + getId());
         treeSign.setTableBgcolor("#2DC7E9");
         treeSign.setTdBgcolor("#C0EFF9");

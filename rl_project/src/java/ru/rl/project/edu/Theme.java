@@ -241,7 +241,7 @@ public class Theme extends Entity implements ITreeElement {
 
     @Override
     public List<ITreeElement> getTreeElements() {
-        return new ArrayList<ITreeElement>(getQuestionMap().values());
+        return new ArrayList<ITreeElement>(getRuleMap().values());
     }
 
     @Override

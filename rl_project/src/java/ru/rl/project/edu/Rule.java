@@ -6,10 +6,12 @@
 package ru.rl.project.edu;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import ru.rl.project.db.JDBCUtils;
 import static ru.rl.project.edu.Entity.getStorage;
@@ -23,7 +25,7 @@ import ru.rl.project.util.Utils;
  *
  * @author mithia
  */
-public class Rule extends Entity {
+public class Rule extends Entity implements ITreeElement{
 
     public static final Comparator<Rule> NUMBER_COMPARATOR = new NumberComparator();
     
@@ -143,8 +145,8 @@ public class Rule extends Entity {
 
     
     public TreeSign getTreeSign() {
-        //treeSign.setName("Тема <b>" + this.getTitle() + "</b>");
-        //treeSign.setId(getTableName() + "_" + getId());
+        treeSign.setName("Правило <b>" + this.getNumber() + "</b>");
+        treeSign.setId(getTableName() + "_" + getId());
         treeSign.setTableBgcolor("#B62528");
         treeSign.setTdBgcolor("#F7CFCF");
         //treeSign.setEditLink("controller?action=edit_theme&id=" + getId());
@@ -177,4 +179,10 @@ public class Rule extends Entity {
             return new Integer(o1.getNumber()).compareTo(new Integer(o2.getNumber()));
         }
     }
+
+    @Override
+    public List<ITreeElement> getTreeElements() {
+        return new ArrayList<ITreeElement>(getQuestionMap().values());
+    }
+
 }

@@ -44,7 +44,7 @@ public class Viewer extends ErrorHandlingServlet {
         switch (action) {
             case "questions":
                 url = "/view_list.jsp";
-                request.setAttribute("title", "Список загруженных вопросов");
+                //request.setAttribute("title", "Список заданий"); будет заполнен в fillAttributesQuestions
                 try {
                     ViewUtils.fillAttributesQuestions(request);
                 } catch (JDBCException e) {
@@ -54,17 +54,17 @@ public class Viewer extends ErrorHandlingServlet {
                 break;
             case "realms":
                 url = "/realms/view_list.jsp";
-                request.setAttribute("title", "Список загруженных областей");
+                request.setAttribute("title", "Список разделов");
                 request.setAttribute("realms", Realm.getMap().values());
                 break;
             case "themes":
                 url = "/themes/view_list.jsp";
-                request.setAttribute("title", "Список имеющихся тем");
+                request.setAttribute("title", "Список всех тем");
                 request.setAttribute("themes", Theme.getMap().values());
                 break;
             case "rules":
                 url = "/rules/view_list.jsp";
-                request.setAttribute("title", "Список имеющихся правил");
+                request.setAttribute("title", "Список всех правил");
                 request.setAttribute("rules", Rule.getMap().values());
                 break;
             case "images":
@@ -84,12 +84,12 @@ public class Viewer extends ErrorHandlingServlet {
                 Map<String, Object> addInfo = Utils.translateWebData(request.getParameterMap());
                 addInfo.put("isRoot", true);
                 request.setAttribute("treeHTML", ITreeElement.MAIN_TREE.getTreeHTML(addInfo));
-                try {
+                /*try {
                     ViewUtils.fillAttributesImages(request, getServletContext());
                 } catch (JDBCException e) {
                     request.setAttribute("exception", e);
                     getServletContext().getRequestDispatcher("/db_error.jsp").forward(request, response);                    
-                }
+                }*/
                 break;
         }
             

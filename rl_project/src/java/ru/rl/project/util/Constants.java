@@ -11,6 +11,9 @@ package ru.rl.project.util;
  */
 public class Constants {
     
-    public static final String MAIN_TITLE = "Систeма фиксации знаний"; //фиксации знаний
+    public static final String MAIN_TITLE = "Виртуальный помощник в изучении русского языка"; 
+    public static final String EDIT_TITLE = "Редактирование данных"; 
+    public static final String MAIN_PAGE = "Главная страница"; 
+    public static final String LEARNING_MODULE = "Модуль обучения"; 
     
 }
