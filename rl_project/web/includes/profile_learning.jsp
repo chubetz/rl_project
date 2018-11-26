@@ -16,9 +16,12 @@
     switch (type_and_id[0]) {
         case "Realm":
             realm = Realm.getById(type_and_id[1]);
+            request.setAttribute("nodeId", realm.getTreeSign().getId());
             break;
         case "Theme":
             theme = Theme.getById(type_and_id[1]);
+            request.setAttribute("nodeId", theme.getTreeSign().getId());
+            break;
             
     }
     request.setAttribute("realm", realm);
@@ -49,6 +52,8 @@
                         </c:if>
                             <br>
                             <form name="start" action="learn" method="POST">
+                                <input type="hidden" name="action" value="learn"/>
+                                <input type="hidden" name="nodeId" value="${nodeId}"/>
                                 <input type="Submit" value="Начать обучение"/>
                             </form>
                     </td>

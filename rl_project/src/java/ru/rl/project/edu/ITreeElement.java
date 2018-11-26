@@ -184,4 +184,14 @@ public interface ITreeElement {
 
         return sb.toString();
     }
+    
+    default List<ITreeElement> getAllChildren() {
+        List<ITreeElement> list = new ArrayList<ITreeElement>();
+        for (ITreeElement node: getTreeElements()) {
+            list.add(node);
+            list.addAll(node.getAllChildren());
+        }
+        
+        return list;
+    }
 }

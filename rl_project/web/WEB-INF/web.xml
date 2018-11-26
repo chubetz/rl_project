@@ -29,6 +29,14 @@
         <servlet-name>Viewer</servlet-name>
         <servlet-class>ru.rl.project.controller.Viewer</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LearnServlet</servlet-name>
+        <servlet-class>ru.rl.project.controller.LearnServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LearnServlet</servlet-name>
+        <url-pattern>/learn</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Viewer</servlet-name>
         <url-pattern>/view</url-pattern>

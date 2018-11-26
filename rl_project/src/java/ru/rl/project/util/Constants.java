@@ -15,5 +15,6 @@ public class Constants {
     public static final String EDIT_TITLE = "Редактирование данных"; 
     public static final String MAIN_PAGE = "Главная страница"; 
     public static final String LEARNING_MODULE = "Модуль обучения"; 
+    public static final String MAIN_BGCOLOR = "#FBE165"; 
     
 }

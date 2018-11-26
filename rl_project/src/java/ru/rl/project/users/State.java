@@ -8,6 +8,8 @@ package ru.rl.project.users;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import ru.rl.project.edu.Exam;
+import ru.rl.project.edu.ITreeElement;
+import ru.rl.project.edu.Learn;
 import ru.rl.project.edu.Storage;
 import ru.rl.project.edu.Theme;
 import ru.rl.project.exception.ExamException;
@@ -20,6 +22,7 @@ import ru.rl.project.exception.JDBCException;
 public class State {
     
     private Map<Theme, Exam> themeExams = new ConcurrentHashMap<Theme, Exam>();
+    private Map<ITreeElement, Learn> nodeLearns = new ConcurrentHashMap<ITreeElement, Learn>();
     private User user;
     
     public Exam getExam(Theme theme) {
@@ -33,6 +36,16 @@ public class State {
 
     }
     
+    public Learn getLearn(ITreeElement node) {
+        Learn learn = nodeLearns.get(node);
+        if (learn == null) {
+            learn = new Learn(node);
+            nodeLearns.put(node, learn);
+        }   
+        return learn;
+
+    }
+
     public Exam stopExam(Theme theme) throws JDBCException {
         Exam exam = themeExams.get(theme);
         if (exam != null) {

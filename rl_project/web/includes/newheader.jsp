@@ -4,8 +4,12 @@
     Author     : mithia
 --%>
 
+<%@page import="ru.rl.project.util.Constants"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+    request.setAttribute("mainBgcolor", Constants.MAIN_BGCOLOR);
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -38,7 +42,7 @@
         </c:if>
         
     </head>
-    <body bgcolor="#FBE165">
+    <body bgcolor="${mainBgcolor}">
         <table width="100%" cellpadding="0" cellspacing="0">
             <tr>
                 <td height="2" colspan="2" bgcolor="black"/>
