@@ -13,7 +13,7 @@
         </td>
     </tr>
     <tr>
-        <td width="30%">
+        <td width="30%" valign="top">
             <c:import url= "/includes/menu.jsp" />
         </td>
         <td width="70%"rowspan="2">

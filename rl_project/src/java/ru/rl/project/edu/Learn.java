@@ -21,6 +21,8 @@ public class Learn {
     
     private LearnElement current;
     
+    private boolean isCurrentLast;
+
     private String title;
     
     public Learn(ITreeElement node) {
@@ -40,6 +42,9 @@ public class Learn {
     
     public LearnElement next() {
         current = new LearnElement(iterator.next(), this);
+        if (!iterator.hasNext()) {
+            isCurrentLast = true;
+        }
         return current;
     }
     
@@ -53,5 +58,9 @@ public class Learn {
     
     public ITreeElement getMainNode() {
         return this.mainNode;
+    }
+    
+    public boolean isCurrentLast() {
+        return this.isCurrentLast;
     }
 }

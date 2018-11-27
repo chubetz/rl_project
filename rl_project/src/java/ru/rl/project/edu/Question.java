@@ -507,4 +507,67 @@ public class Question extends Entity implements ITreeElement {
 
         return treeSign;
     }
+    
+    private Set<Answer> alreadyUsedCorrectAnswers = new HashSet<Answer>();
+
+    
+    private class GeneratedQuestion extends Question {
+        GeneratedQuestion() {
+            super(-1001);
+            List<Answer> allAnswers = new ArrayList<Answer>(Question.this.getAnswerMap().values());
+            Collections.shuffle(allAnswers);
+            fillAnswers(allAnswers);
+            
+        }
+        
+        private void fillAnswers(List<Answer> allAnswers) {
+            int total = 0;
+            int total_corrected = 0;
+            //подбираем ответы для задания - всего 4, не менее 1-го и не более 1-го правильного
+            for (Answer answer: allAnswers) {
+                if (total < 4) {
+                    if (answer.getCorrect() && total_corrected < 1 && !Question.this.alreadyUsedCorrectAnswers.contains(answer)) {
+                        this.answers.add(answer);
+                        total++;
+                        total_corrected++;
+                        alreadyUsedCorrectAnswers.add(answer);
+                        continue;
+                    }
+                    if (!answer.getCorrect() && (total - total_corrected) < 3) {
+                        this.answers.add(answer);
+                        total++;
+                        continue;
+                    }
+                } else
+                    break;
+            }
+            
+            if (answers.size() < 4 && !Question.this.alreadyUsedCorrectAnswers.isEmpty()) { //не удалось найти ранее не используемые корректные ответы
+                Question.this.alreadyUsedCorrectAnswers = new HashSet<Answer>();
+                fillAnswers(allAnswers);
+            }
+            
+        }
+        
+        List<Answer> answers = new ArrayList<Answer>();
+        
+        @Override
+        public String getText() {
+            return Question.this.getText();
+        }
+        
+        //@Override
+        public Map<Integer, Answer> getAnswerMap() {
+            Map<Integer, Answer> map = new HashMap<Integer, Answer>();
+            for (Answer answer: this.answers) {
+                map.put(answer.getId(), answer);
+            }
+            
+            return map;
+        }
+    }
+    
+    public Question generateQuestion() {
+        return new GeneratedQuestion();
+    }
 }

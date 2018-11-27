@@ -12,7 +12,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import ru.rl.project.edu.ITreeElement;
 import ru.rl.project.edu.Learn;
 import ru.rl.project.edu.TreeUtils;
 import ru.rl.project.users.State;
@@ -40,13 +39,27 @@ public class LearnServlet extends ErrorHandlingServlet {
         String url = null;
         State state = User.getDefaultUser().getState();
         String action = request.getParameter("action");
+        String subAction = request.getParameter("subAction");
         switch (action) {
             case "learn":
                 String nodeId = request.getParameter("nodeId");
                 String doNext = request.getParameter("doNext");
+                if (subAction != null && subAction.equals("forced_new")) {
+                    //request.setAttribute("jsp_main", "/includes/learning_module.jsp");
+                    state.stopLearn(TreeUtils.getById(nodeId));
+                }
                 Learn learn = state.getLearn(TreeUtils.getById(nodeId));
                 if (doNext != null && doNext.equals("true"))
                     learn.next();
+                if (subAction != null && subAction.equals("stop")) {
+                    //request.setAttribute("jsp_main", "/includes/learning_module.jsp");
+                    state.stopLearn(learn.getMainNode());
+                    url = "/learning.jsp";
+                    break;
+                }
+                
+                learn.getCurrent().setParameterMap(request.getParameterMap());
+                request.setAttribute("exam_mode", "on");
                 request.setAttribute("learnElement", learn.getCurrent());
                 request.setAttribute("subtitle", Constants.LEARNING_MODULE + ": " + learn.getTitle());
                 request.setAttribute("jsp_main", "/includes/learn_view.jsp");

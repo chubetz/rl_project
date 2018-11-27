@@ -4,6 +4,8 @@
     Author     : mithia
 --%>
 
+<%@page import="ru.rl.project.users.User"%>
+<%@page import="ru.rl.project.users.State"%>
 <%@page import="ru.rl.project.edu.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -12,15 +14,19 @@
     String details = request.getParameter("details");
     Realm realm = null;
     Theme theme = null;
+    State state = User.getDefaultUser().getState();;
+    Learn learn = null;
     String[] type_and_id = details.split("_");
     switch (type_and_id[0]) {
         case "Realm":
             realm = Realm.getById(type_and_id[1]);
             request.setAttribute("nodeId", realm.getTreeSign().getId());
+            request.setAttribute("hasLearn", state.hasLearn(realm));
             break;
         case "Theme":
             theme = Theme.getById(type_and_id[1]);
             request.setAttribute("nodeId", theme.getTreeSign().getId());
+            request.setAttribute("hasLearn", state.hasLearn(theme));
             break;
             
     }
@@ -51,11 +57,38 @@
                             Количество заданий: <b>${theme.getQuestionMap().size()}</b><br>
                         </c:if>
                             <br>
-                            <form name="start" action="learn" method="POST">
-                                <input type="hidden" name="action" value="learn"/>
-                                <input type="hidden" name="nodeId" value="${nodeId}"/>
-                                <input type="Submit" value="Начать обучение"/>
-                            </form>
+                            <c:if test="${!hasLearn}">
+                                <form name="start" action="learn" method="POST">
+                                    <input type="hidden" name="action" value="learn"/>
+                                    <input type="hidden" name="nodeId" value="${nodeId}"/>
+                                    <input type="Submit" value="Начать обучение"/>
+                                </form>
+                            </c:if>
+                            <c:if test="${hasLearn}">
+                                <table border="0">
+                                    <tr>
+                                        <td>
+                                <form name="start" action="learn" method="POST">
+                                    <input type="hidden" name="action" value="learn"/>
+                                    <input type="hidden" name="nodeId" value="${nodeId}"/>
+                                    <input type="Submit" value="Продолжить начатое обучение"/>
+                                </form>
+                                            
+                                        </td>
+                                        <td>
+                                <form name="start" action="learn" method="POST">
+                                    <input type="hidden" name="action" value="learn"/>
+                                    <input type="hidden" name="nodeId" value="${nodeId}"/>
+                                    <input type="hidden" name="subAction" value="forced_new"/>
+                                    <input type="Submit" value="Начать обучение заново"/>
+                                </form>
+                                            
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                                
+                            </c:if>
                     </td>
                 </tr>
                 

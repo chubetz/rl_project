@@ -46,7 +46,7 @@ public interface ITreeElement {
         
         private TreeSign treeSign = new TreeSign() {
             {
-                setName("Выберите раздел или тему для обучения");
+                setName("Выберите раздел или тему для изучения");
                 setId("LT");
                 setTableBgcolor("#E06017");
                 setTdBgcolor("#FBDECE");

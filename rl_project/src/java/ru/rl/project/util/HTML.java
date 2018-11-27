@@ -13,4 +13,6 @@ public class HTML {
     public static String getMenuHTML() {
         return null;
     }
+    
+    //public static String getQuestion
 }

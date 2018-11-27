@@ -25,9 +25,12 @@
     
     if (addInfo.get("details") != null) {
         request.setAttribute("jsp_main", "/includes/profile_learning.jsp?details=" + addInfo.get("details"));
+    } else {
+        request.setAttribute("jsp_main", "/includes/learning_module.jsp");
     }
     
     request.setAttribute("tree", ITreeElement.LEARNING_TREE.getTreeHTML_Learning(addInfo));
+
 %>
 <c:import url= "/includes/newheader.jsp" />
 <%--c:import url= "/includes/icons.jsp" /--%>

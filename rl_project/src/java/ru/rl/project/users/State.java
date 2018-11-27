@@ -46,12 +46,22 @@ public class State {
 
     }
 
+    public boolean hasLearn(ITreeElement node) {
+        Learn learn = nodeLearns.get(node);
+        return learn != null;
+
+    }
+
     public Exam stopExam(Theme theme) throws JDBCException {
         Exam exam = themeExams.get(theme);
         if (exam != null) {
             exam.saveStatistics();
         }   
         return themeExams.remove(theme);
+    }
+
+    public void stopLearn(ITreeElement node) {
+        nodeLearns.remove(node);
     }
 
     public Exam cancelExam(Theme theme) {
