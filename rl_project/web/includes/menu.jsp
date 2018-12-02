@@ -23,10 +23,10 @@
     <span style="display:inline-block; position:absolute; top:5px; left:5px;">Модуль проверки</span>
 </div>
 </a><br>
-<a href="">
+<%--a href="">
 <div style="display:inline-block; position:relative;">
     <img src="${pageContext.request.contextPath}/images/menu_rosa.png">
     <span style="display:inline-block; position:absolute; top:5px; left:5px;">О нас</span>
 </div>
-</a><br>
+</a><br--%>
 
