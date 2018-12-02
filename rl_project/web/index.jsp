@@ -12,6 +12,8 @@
 
     request.setAttribute("title", Constants.MAIN_TITLE);
     request.setAttribute("subtitle", Constants.MAIN_PAGE);
+    
+    request.setAttribute("jsp_main", "/includes/about.jsp");
 %>
 <c:import url= "/includes/newheader.jsp" />
 <%--c:import url= "/includes/icons.jsp" /--%>

@@ -27,6 +27,9 @@
             <label>Порядковый номер</label>
             <input type="text" name="number" value="${question.getNumber()}">
             <br>
+            <label>Номер на экзамене</label>
+            <input type="text" name="numberOnExam" value="${question.getNumberOnExam()}">
+            <br>
             <table width="800" cellpadding="10">
                 <tr>
                     <td>

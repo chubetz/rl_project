@@ -122,6 +122,7 @@ public class Question extends Entity implements ITreeElement {
         defaultState.put("type", -1);
         defaultState.put("text", "");
         defaultState.put("number", 0);
+        defaultState.put("numberOnExam", 0);
 
         availableTypes = new HashMap<Integer, String>();
         //availableTypes.put(NB_TYPE, "Nota bene"); //односторонняя флеш-карточка
@@ -308,7 +309,7 @@ public class Question extends Entity implements ITreeElement {
 
     @Override
     public String toString() {
-        return "Задание {" + getId() + "} " + '{' + getRule().getId() + "} " + "{" + Question.getTypeText(getInt("type")) + "}" + "{" + getInt("number") + "}";
+        return "Задание {" + getId() + "} " + '{' + getRule().getId() + "} " + "{" + Question.getTypeText(getInt("type")) + "}" + "{" + getInt("number") + "}" + "{<font color=red>" + getInt("numberOnExam") + "</font>}";
     }
     
     private void saveAnswers(Map<String, ?> data) throws JDBCException {
@@ -457,6 +458,10 @@ public class Question extends Entity implements ITreeElement {
         return getInt("number");
     }
     
+    public int getNumberOnExam() {
+        return getInt("numberOnExam");
+    }
+
     public int getType() {
         return getInt("type");
     }
@@ -509,12 +514,29 @@ public class Question extends Entity implements ITreeElement {
     }
     
     private Set<Answer> alreadyUsedCorrectAnswers = new HashSet<Answer>();
+    
+    public static final int LEARN_MODE = 0;
+    public static final int TEST_MODE = 1;
 
     
     private class GeneratedQuestion extends Question {
-        GeneratedQuestion() {
+        GeneratedQuestion(int mode) {
             super(-1001);
-            List<Answer> allAnswers = new ArrayList<Answer>(Question.this.getAnswerMap().values());
+            List<Answer> allAnswers = new ArrayList<Answer>();
+            for (Answer a: Question.this.getAnswerMap().values()) {
+                switch (mode) {
+                    case Question.LEARN_MODE:
+                        if (!a.getComment().equals("test")) {
+                            allAnswers.add(a);
+                        }
+                        break;
+                    case Question.TEST_MODE:
+                        if (a.getComment().equals("test")) {
+                            allAnswers.add(a);
+                        }
+                        break;
+                }
+            }
             Collections.shuffle(allAnswers);
             fillAnswers(allAnswers);
             
@@ -556,6 +578,11 @@ public class Question extends Entity implements ITreeElement {
             return Question.this.getText();
         }
         
+        @Override
+        public int getNumberOnExam() {
+            return Question.this.getNumberOnExam();
+        }
+
         //@Override
         public Map<Integer, Answer> getAnswerMap() {
             Map<Integer, Answer> map = new HashMap<Integer, Answer>();
@@ -567,7 +594,7 @@ public class Question extends Entity implements ITreeElement {
         }
     }
     
-    public Question generateQuestion() {
-        return new GeneratedQuestion();
+    public Question generateQuestion(int mode) {
+        return new GeneratedQuestion(mode);
     }
 }

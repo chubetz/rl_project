@@ -47,7 +47,7 @@ class ViewUtils {
         
         StringBuilder sb = new StringBuilder();
         
-        sb.append("<table>");
+        sb.append("<table style=\"font-size:10px;\">");
         if (Storage.getJdbcException() != null) {
             throw Storage.getJdbcException();
         }
@@ -88,10 +88,16 @@ class ViewUtils {
                 Answer answer = ans_entry.getValue();
                 sb.append("<td>");
                 String ansText = answer.getStr("text");
+                if (answer.getComment().equals("test")) {
+                    sb.append("<font color=red>");
+                }
                 if (answer.getBool("correct")) {
-                    ansText = "<b>" + ansText + "</b>";
+                    ansText = "<b><u>" + ansText + "</u></b>";
                 }
                 sb.append(ansText);
+                if (answer.getComment().equals("test")) {
+                    sb.append("</font>");
+                }
                 sb.append("</td>");
             }
             sb.append("</tr>");

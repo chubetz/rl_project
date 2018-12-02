@@ -17,7 +17,7 @@
     <span style="display:inline-block; position:absolute; top:5px; left:5px;">Модуль обучения</span>
 </div>
 </a><br>
-<a href="">
+<a href="testing.jsp">
 <div style="display:inline-block; position:relative;">
     <img src="${pageContext.request.contextPath}/images/menu_orange.png">
     <span style="display:inline-block; position:absolute; top:5px; left:5px;">Модуль проверки</span>

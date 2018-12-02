@@ -61,9 +61,40 @@ public interface ITreeElement {
 
     };
 
+    ITreeElement TESTING_TREE = new ITreeElement() {
+        @Override
+        public List<ITreeElement> getTreeElements() {
+            return new ArrayList<ITreeElement>(Realm.getMap().values());
+        }
+        
+        private TreeSign treeSign = new TreeSign() {
+            {
+                setName("Выберите раздел для проверки");
+                setId("TT");
+                setTableBgcolor("#E06017");
+                setTdBgcolor("#FBDECE");
+            }
+                
+            };
+
+        @Override
+        public TreeSign getTreeSign() {
+            return  treeSign;
+        }
+
+    };
+
     List<ITreeElement> getTreeElements();
     
     TreeSign getTreeSign();
+    
+    default void collapseAll() {
+        TreeSign ts = this.getTreeSign();
+        ts.setExpanded(false);
+        for (ITreeElement el: this.getTreeElements()) {
+            el.collapseAll();
+        }
+    }
     
     default String getTreeHTML(Map<String, Object> addInfo) {
         StringBuilder sb = new StringBuilder();

@@ -111,7 +111,7 @@ public class LearnElement {
             StringBuilder sb = new StringBuilder();
             switch (qState) {
                 case New:
-                    this.generatedQuestion = question.generateQuestion();
+                    this.generatedQuestion = question.generateQuestion(Question.LEARN_MODE);
                     sb.append("<b>Задание.</b> " + this.generatedQuestion.getText() + "<br>");
                     answersFromFront = new HashMap<Integer, Boolean>();
                     answers = generatedQuestion.getAnswersShuffled();
@@ -187,9 +187,20 @@ public class LearnElement {
                                 userAnswer = false;
                             }
                             if (userAnswer == answer.getCorrect()) { //пользователь ответил верно
-                                row.append("<td bgcolor=#3EAA08 onclick=\"getCommentHTML('" + answer.getId() + "', " + userAnswer + ")\" width=\"5%\">\n");
+                                row.append("<td "); 
+                                if (userAnswer) // подсветить выбранный правильный ответ
+                                    row.append("bgcolor=#3EAA08 ");
+                                else
+                                    row.append("bgcolor=#FAF5F5 ");
+                                row.append("onclick=\"getCommentHTML('" + answer.getId() + "', " + userAnswer + ")\" width=\"5%\">\n");
+                                
                             } else {
-                                row.append("<td bgcolor=#DA1617 onclick=\"getCommentHTML('" + answer.getId() + "', " + userAnswer + ")\" width=\"5%\">\n");
+                                row.append("<td ");
+                                if (userAnswer) // подсветить выбранный правильный ответ
+                                    row.append("bgcolor=#DA1617 ");
+                                else
+                                    row.append("bgcolor=#3EAA08 ");
+                                row.append("onclick=\"getCommentHTML('" + answer.getId() + "', " + userAnswer + ")\" width=\"5%\">\n");
                                 userAnsweredRight = false;
                             }
                             row.append("<input type=\"checkbox\" " + (userAnswer ? "checked" : "") + " disabled>");
@@ -217,10 +228,11 @@ public class LearnElement {
                             if (alreadyAnswered == successQuestionQuantity) {
                                 sb.append("Задание выполнено <b style='color:green;'>ВЕРНО</b>.");
                                 if (parentLearn.isCurrentLast()) {
-                                    sb.append("Поздравляем! Сеанс обучения окончен!");
+                                    sb.append(" Поздравляем! Сеанс обучения окончен!");
                                     buttonString = "Завершить";
                                     subAction = "stop";
                                 } else {
+                                    sb.append(" Идем дальше!");
                                     subAction = "";
                                     doNext = "true";
                                 }

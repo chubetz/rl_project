@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.HashSet;
 import ru.rl.project.db.JDBCUtils;
 import ru.rl.project.exception.JDBCException;
 import ru.rl.project.util.Utils;
@@ -144,6 +146,15 @@ public class Realm extends Entity implements ITreeElement {
         }
         
         return map;
+    }
+
+    public int getTestQuestionsNumber() {
+        Set<Integer> counterSet = new HashSet<Integer>();
+        for (Question q: getQuestionMap().values()) {
+            if (q.getNumberOnExam() > 0)
+                counterSet.add(q.getNumberOnExam());
+        }
+        return counterSet.size();
     }
 
     public String getQuestionsHTMLLink(String linkText) {

@@ -14,23 +14,23 @@
     request.setAttribute("title", Constants.MAIN_TITLE);
     request.setAttribute("subtitle", Constants.LEARNING_MODULE);
     
-    ITreeElement.LEARNING_TREE.collapseAll();
-    request.setAttribute("treeSign", ITreeElement.LEARNING_TREE.getTreeSign());
+    ITreeElement.TESTING_TREE.collapseAll();
+    request.setAttribute("treeSign", ITreeElement.TESTING_TREE.getTreeSign());
     Map<String, Object> addInfo = Utils.translateWebData(request.getParameterMap());
     addInfo.put("isRoot", true);
-    addInfo.put("lastBranch", "Theme");
-    addInfo.put("url", "learning.jsp");
+    addInfo.put("lastBranch", "Realm");
+    addInfo.put("url", "testing.jsp");
     if (addInfo.get("info") == null || !addInfo.get("info").equals("tree")) { //при первом открытии дерева надо развернуть все
         addInfo.put("expandAll", true);
     }
     
     if (addInfo.get("details") != null) {
-        request.setAttribute("jsp_main", "/includes/profile_learning.jsp?details=" + addInfo.get("details"));
+        request.setAttribute("jsp_main", "/includes/profile_testing.jsp?details=" + addInfo.get("details"));
     } else {
-        request.setAttribute("jsp_main", "/includes/learning_module.jsp");
+        request.setAttribute("jsp_main", "/includes/testing_module.jsp");
     }
     
-    request.setAttribute("tree", ITreeElement.LEARNING_TREE.getTreeHTML_Learning(addInfo));
+    request.setAttribute("tree", ITreeElement.TESTING_TREE.getTreeHTML_Learning(addInfo));
 
 %>
 <c:import url= "/includes/newheader.jsp" />

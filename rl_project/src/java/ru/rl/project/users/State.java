@@ -11,6 +11,7 @@ import ru.rl.project.edu.Exam;
 import ru.rl.project.edu.ITreeElement;
 import ru.rl.project.edu.Learn;
 import ru.rl.project.edu.Storage;
+import ru.rl.project.edu.Test;
 import ru.rl.project.edu.Theme;
 import ru.rl.project.exception.ExamException;
 import ru.rl.project.exception.JDBCException;
@@ -23,6 +24,7 @@ public class State {
     
     private Map<Theme, Exam> themeExams = new ConcurrentHashMap<Theme, Exam>();
     private Map<ITreeElement, Learn> nodeLearns = new ConcurrentHashMap<ITreeElement, Learn>();
+    private Map<ITreeElement, Test> nodeTests = new ConcurrentHashMap<ITreeElement, Test>();
     private User user;
     
     public Exam getExam(Theme theme) {
@@ -46,9 +48,25 @@ public class State {
 
     }
 
+    public Test getTest(ITreeElement node) {
+        Test test = nodeTests.get(node);
+        if (test == null) {
+            test = new Test(node);
+            nodeTests.put(node, test);
+        }   
+        return test;
+
+    }
+
     public boolean hasLearn(ITreeElement node) {
         Learn learn = nodeLearns.get(node);
         return learn != null;
+
+    }
+
+    public boolean hasTest(ITreeElement node) {
+        Test test = nodeTests.get(node);
+        return test != null;
 
     }
 
@@ -62,6 +80,10 @@ public class State {
 
     public void stopLearn(ITreeElement node) {
         nodeLearns.remove(node);
+    }
+
+    public void stopTest(ITreeElement node) {
+        nodeTests.remove(node);
     }
 
     public Exam cancelExam(Theme theme) {
