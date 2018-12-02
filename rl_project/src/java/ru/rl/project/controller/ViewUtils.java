@@ -88,14 +88,14 @@ class ViewUtils {
                 Answer answer = ans_entry.getValue();
                 sb.append("<td>");
                 String ansText = answer.getStr("text");
-                if (answer.getComment().equals("test")) {
+                if (answer.getComment().indexOf("test") >=0) {
                     sb.append("<font color=red>");
                 }
                 if (answer.getBool("correct")) {
                     ansText = "<b><u>" + ansText + "</u></b>";
                 }
                 sb.append(ansText);
-                if (answer.getComment().equals("test")) {
+                if (answer.getComment().indexOf("test") >=0) {
                     sb.append("</font>");
                 }
                 sb.append("</td>");

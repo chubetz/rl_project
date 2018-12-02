@@ -526,12 +526,12 @@ public class Question extends Entity implements ITreeElement {
             for (Answer a: Question.this.getAnswerMap().values()) {
                 switch (mode) {
                     case Question.LEARN_MODE:
-                        if (!a.getComment().equals("test")) {
+                        if (!(a.getComment().indexOf("test") >=0)) {
                             allAnswers.add(a);
                         }
                         break;
                     case Question.TEST_MODE:
-                        if (a.getComment().equals("test")) {
+                        if (a.getComment().indexOf("test") >=0) {
                             allAnswers.add(a);
                         }
                         break;
